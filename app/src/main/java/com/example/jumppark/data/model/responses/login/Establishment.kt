@@ -1,4 +1,4 @@
-package com.example.jumppark.data.model.login
+package com.example.jumppark.data.model.responses.login
 
 data class Establishment(
     val accountId: Int,
