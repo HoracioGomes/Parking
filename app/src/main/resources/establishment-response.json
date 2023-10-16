@@ -1,0 +1,792 @@
+{
+  "response": "success",
+  "data": {
+    "establishmentSettings": {
+      "establishmentId": 4401,
+      "cashReserve": "0.00",
+      "recurrentClientEntryOption": 0,
+      "withdrawal": 1,
+      "serviceOnly": 0,
+      "print": 2,
+      "printNote": null,
+      "manualCovenant": 1,
+      "manualTime": 0,
+      "accountId": 3980,
+      "prePaidExit": 0,
+      "requireReceiptCovantTypePrice": 0,
+      "requireReceiptExpense": 0,
+      "pathLogo": null,
+      "reserveActivation": 0,
+      "preReserveToleranceTime": null,
+      "rpsAutomaticGenerate": null
+    },
+    "paymentMethods": [
+      {
+        "establishmentPaymentMethodId": 8918,
+        "paymentMethodName": "Dinheiro",
+        "primitivePaymentMethodId": 1,
+        "receivingDays": 0,
+        "receivingFee": "0.00",
+        "accountId": 3980
+      },
+      {
+        "establishmentPaymentMethodId": 8919,
+        "paymentMethodName": "Crédito",
+        "primitivePaymentMethodId": 2,
+        "receivingDays": 0,
+        "receivingFee": "0.00",
+        "accountId": 3981
+      },
+      {
+        "establishmentPaymentMethodId": 8920,
+        "paymentMethodName": "Débito",
+        "primitivePaymentMethodId": 3,
+        "receivingDays": 0,
+        "receivingFee": "0.00",
+        "accountId": 3981
+      },
+      {
+        "establishmentPaymentMethodId": 8921,
+        "paymentMethodName": "Boleto",
+        "primitivePaymentMethodId": 4,
+        "receivingDays": 0,
+        "receivingFee": "0.00",
+        "accountId": 3981
+      },
+      {
+        "establishmentPaymentMethodId": 8922,
+        "paymentMethodName": "Pix",
+        "primitivePaymentMethodId": 10,
+        "receivingDays": 0,
+        "receivingFee": "0.00",
+        "accountId": 3981
+      }
+    ],
+    "accounts": [
+      {
+        "accountId": 3980,
+        "accountName": "Estacio",
+        "bankId": null,
+        "bankName": "",
+        "bankAgency": "",
+        "bankAccount": "",
+        "accountTypeId": 1
+      },
+      {
+        "accountId": 3981,
+        "accountName": "Conta Empresa",
+        "bankId": null,
+        "bankName": "",
+        "bankAgency": "",
+        "bankAccount": "",
+        "accountTypeId": 2
+      }
+    ],
+    "costCenters": [
+      {
+        "costCenterId": 2333,
+        "costCenterName": "Operacional"
+      }
+    ],
+    "categories": [
+      {
+        "categoryId": 51053,
+        "categoryName": "Ordem de Serviço",
+        "transactionTypeId": 1,
+        "categorySourceId": 1,
+        "costCenterId": 2333
+      },
+      {
+        "categoryId": 51054,
+        "categoryName": "Venda Avulsa",
+        "transactionTypeId": 1,
+        "categorySourceId": 3,
+        "costCenterId": 2333
+      },
+      {
+        "categoryId": 51055,
+        "categoryName": "Pacote de serviços",
+        "transactionTypeId": 1,
+        "categorySourceId": 8,
+        "costCenterId": 2333
+      },
+      {
+        "categoryId": 51056,
+        "categoryName": "Outros",
+        "transactionTypeId": 1,
+        "categorySourceId": 3,
+        "costCenterId": 2333
+      },
+      {
+        "categoryId": 51057,
+        "categoryName": "Transferência",
+        "transactionTypeId": 1,
+        "categorySourceId": 3,
+        "costCenterId": 2333
+      },
+      {
+        "categoryId": 51058,
+        "categoryName": "Serviço Automotivo",
+        "transactionTypeId": 1,
+        "categorySourceId": 3,
+        "costCenterId": 2333
+      },
+      {
+        "categoryId": 51059,
+        "categoryName": "Fatura",
+        "transactionTypeId": 1,
+        "categorySourceId": 2,
+        "costCenterId": 2333
+      },
+      {
+        "categoryId": 51060,
+        "categoryName": "Sangria",
+        "transactionTypeId": 1,
+        "categorySourceId": 4,
+        "costCenterId": 2333
+      },
+      {
+        "categoryId": 51061,
+        "categoryName": "Fechamento de Caixa",
+        "transactionTypeId": 1,
+        "categorySourceId": 5,
+        "costCenterId": 2333
+      },
+      {
+        "categoryId": 51062,
+        "categoryName": "Abertura de Caixa",
+        "transactionTypeId": 1,
+        "categorySourceId": 6,
+        "costCenterId": 2333
+      },
+      {
+        "categoryId": 51063,
+        "categoryName": "Vale Alimentação",
+        "transactionTypeId": 2,
+        "categorySourceId": 3,
+        "costCenterId": 2333
+      },
+      {
+        "categoryId": 51064,
+        "categoryName": "Transporte",
+        "transactionTypeId": 2,
+        "categorySourceId": 3,
+        "costCenterId": 2333
+      },
+      {
+        "categoryId": 51065,
+        "categoryName": "Tarifa Bancária",
+        "transactionTypeId": 2,
+        "categorySourceId": 3,
+        "costCenterId": 2333
+      },
+      {
+        "categoryId": 51066,
+        "categoryName": "Transferência",
+        "transactionTypeId": 2,
+        "categorySourceId": 3,
+        "costCenterId": 2333
+      },
+      {
+        "categoryId": 51067,
+        "categoryName": "Salário",
+        "transactionTypeId": 2,
+        "categorySourceId": 3,
+        "costCenterId": 2333
+      },
+      {
+        "categoryId": 51068,
+        "categoryName": "Pró-labore",
+        "transactionTypeId": 2,
+        "categorySourceId": 3,
+        "costCenterId": 2333
+      },
+      {
+        "categoryId": 51069,
+        "categoryName": "Aluguel",
+        "transactionTypeId": 2,
+        "categorySourceId": 3,
+        "costCenterId": 2333
+      },
+      {
+        "categoryId": 51070,
+        "categoryName": "Impostos",
+        "transactionTypeId": 2,
+        "categorySourceId": 3,
+        "costCenterId": 2333
+      },
+      {
+        "categoryId": 51071,
+        "categoryName": "Taxa de cartão",
+        "transactionTypeId": 2,
+        "categorySourceId": 7,
+        "costCenterId": 2333
+      },
+      {
+        "categoryId": 51072,
+        "categoryName": "Sangria",
+        "transactionTypeId": 2,
+        "categorySourceId": 4,
+        "costCenterId": 2333
+      },
+      {
+        "categoryId": 51073,
+        "categoryName": "Outros",
+        "transactionTypeId": 2,
+        "categorySourceId": 3,
+        "costCenterId": 2333
+      },
+      {
+        "categoryId": 51074,
+        "categoryName": "Fechamento de Caixa",
+        "transactionTypeId": 2,
+        "categorySourceId": 5,
+        "costCenterId": 2333
+      },
+      {
+        "categoryId": 51075,
+        "categoryName": "Abertura de Caixa",
+        "transactionTypeId": 2,
+        "categorySourceId": 6,
+        "costCenterId": 2333
+      }
+    ],
+    "prices": [
+      {
+        "establishmentId": 4401,
+        "typePrice": "Padrao",
+        "covenant": 0,
+        "invisible": 0,
+        "major": 0,
+        "tolerance": 5,
+        "maximumPeriod": 1440,
+        "maximumValue": "100.00",
+        "items": [
+          {
+            "itemId": 16552,
+            "price": "8.00",
+            "period": 60,
+            "since": 0,
+            "establishmentId": 4401,
+            "typePrice": "Padrao"
+          },
+          {
+            "itemId": 16553,
+            "price": "4.00",
+            "period": 30,
+            "since": 0,
+            "establishmentId": 4401,
+            "typePrice": "Padrao"
+          },
+          {
+            "itemId": 16554,
+            "price": "2.00",
+            "period": 15,
+            "since": 0,
+            "establishmentId": 4401,
+            "typePrice": "Padrao"
+          },
+          {
+            "itemId": 16555,
+            "price": "4.00",
+            "period": 60,
+            "since": 240,
+            "establishmentId": 4401,
+            "typePrice": "Padrao"
+          }
+        ]
+      }
+    ],
+    "cards": [],
+    "services": [],
+    "damageTypes": [
+      {
+        "damageTypeId": 1,
+        "description": "Amassado"
+      },
+      {
+        "damageTypeId": 2,
+        "description": "Riscado"
+      },
+      {
+        "damageTypeId": 3,
+        "description": "Quebrado"
+      },
+      {
+        "damageTypeId": 4,
+        "description": "Furado"
+      }
+    ],
+    "vehicleParts": [
+      {
+        "partId": 1,
+        "description": "Lateral frontal esquerda"
+      },
+      {
+        "partId": 2,
+        "description": "Frontal central"
+      },
+      {
+        "partId": 3,
+        "description": "Lateral frontal direita"
+      },
+      {
+        "partId": 4,
+        "description": "Central esquerda"
+      },
+      {
+        "partId": 5,
+        "description": "Central superior"
+      },
+      {
+        "partId": 6,
+        "description": "Central direita"
+      },
+      {
+        "partId": 7,
+        "description": "Lateral traseira esquerda"
+      },
+      {
+        "partId": 8,
+        "description": "Traseira central"
+      },
+      {
+        "partId": 9,
+        "description": "Lateral traseira direita"
+      },
+      {
+        "partId": 10,
+        "description": "Avaria interna"
+      }
+    ],
+    "damageCategories": [
+      {
+        "damageCategoryId": 1,
+        "description": "Farol",
+        "partId": 1
+      },
+      {
+        "damageCategoryId": 2,
+        "description": "Capô",
+        "partId": 1
+      },
+      {
+        "damageCategoryId": 3,
+        "description": "Placa",
+        "partId": 1
+      },
+      {
+        "damageCategoryId": 4,
+        "description": "Para-choque",
+        "partId": 1
+      },
+      {
+        "damageCategoryId": 5,
+        "description": "Para-brisa",
+        "partId": 1
+      },
+      {
+        "damageCategoryId": 6,
+        "description": "Para-lama",
+        "partId": 1
+      },
+      {
+        "damageCategoryId": 7,
+        "description": "Vidro",
+        "partId": 1
+      },
+      {
+        "damageCategoryId": 8,
+        "description": "Limpador do para-brisa",
+        "partId": 1
+      },
+      {
+        "damageCategoryId": 9,
+        "description": "Porta",
+        "partId": 1
+      },
+      {
+        "damageCategoryId": 10,
+        "description": "Maçaneta",
+        "partId": 1
+      },
+      {
+        "damageCategoryId": 11,
+        "description": "Farol",
+        "partId": 3
+      },
+      {
+        "damageCategoryId": 12,
+        "description": "Capô",
+        "partId": 3
+      },
+      {
+        "damageCategoryId": 13,
+        "description": "Placa",
+        "partId": 3
+      },
+      {
+        "damageCategoryId": 14,
+        "description": "Para-choque",
+        "partId": 3
+      },
+      {
+        "damageCategoryId": 15,
+        "description": "Para-brisa",
+        "partId": 3
+      },
+      {
+        "damageCategoryId": 16,
+        "description": "Para-lama",
+        "partId": 3
+      },
+      {
+        "damageCategoryId": 17,
+        "description": "Vidro",
+        "partId": 3
+      },
+      {
+        "damageCategoryId": 18,
+        "description": "Limpador do para-brisa",
+        "partId": 3
+      },
+      {
+        "damageCategoryId": 19,
+        "description": "Porta",
+        "partId": 3
+      },
+      {
+        "damageCategoryId": 20,
+        "description": "Maçaneta",
+        "partId": 3
+      },
+      {
+        "damageCategoryId": 21,
+        "description": "Farol",
+        "partId": 2
+      },
+      {
+        "damageCategoryId": 22,
+        "description": "Capô",
+        "partId": 2
+      },
+      {
+        "damageCategoryId": 23,
+        "description": "Placa",
+        "partId": 2
+      },
+      {
+        "damageCategoryId": 24,
+        "description": "Para-choque",
+        "partId": 2
+      },
+      {
+        "damageCategoryId": 25,
+        "description": "Para-brisa",
+        "partId": 2
+      },
+      {
+        "damageCategoryId": 26,
+        "description": "Para-lama",
+        "partId": 2
+      },
+      {
+        "damageCategoryId": 27,
+        "description": "Vidro",
+        "partId": 2
+      },
+      {
+        "damageCategoryId": 28,
+        "description": "Limpador do para-brisa",
+        "partId": 2
+      },
+      {
+        "damageCategoryId": 29,
+        "description": "Retrovisor",
+        "partId": 2
+      },
+      {
+        "damageCategoryId": 30,
+        "description": "Porta frontal",
+        "partId": 4
+      },
+      {
+        "damageCategoryId": 31,
+        "description": "Porta traseira",
+        "partId": 4
+      },
+      {
+        "damageCategoryId": 32,
+        "description": "Vidro frontal",
+        "partId": 4
+      },
+      {
+        "damageCategoryId": 33,
+        "description": "Vidro traseiro",
+        "partId": 4
+      },
+      {
+        "damageCategoryId": 34,
+        "description": "Retrovisor esquerdo/direito",
+        "partId": 4
+      },
+      {
+        "damageCategoryId": 35,
+        "description": "Tampa do tanque",
+        "partId": 4
+      },
+      {
+        "damageCategoryId": 36,
+        "description": "Porta frontal",
+        "partId": 6
+      },
+      {
+        "damageCategoryId": 37,
+        "description": "Porta traseira",
+        "partId": 6
+      },
+      {
+        "damageCategoryId": 38,
+        "description": "Vidro frontal",
+        "partId": 6
+      },
+      {
+        "damageCategoryId": 39,
+        "description": "Vidro traseiro",
+        "partId": 6
+      },
+      {
+        "damageCategoryId": 40,
+        "description": "Retrovisor esquerdo/direito",
+        "partId": 6
+      },
+      {
+        "damageCategoryId": 41,
+        "description": "Tampa do tanque",
+        "partId": 6
+      },
+      {
+        "damageCategoryId": 42,
+        "description": "Para-brisa",
+        "partId": 5
+      },
+      {
+        "damageCategoryId": 43,
+        "description": "Vidro traseiro",
+        "partId": 5
+      },
+      {
+        "damageCategoryId": 44,
+        "description": "Teto",
+        "partId": 5
+      },
+      {
+        "damageCategoryId": 45,
+        "description": "Lanterna",
+        "partId": 7
+      },
+      {
+        "damageCategoryId": 46,
+        "description": "Porta",
+        "partId": 7
+      },
+      {
+        "damageCategoryId": 47,
+        "description": "Mala",
+        "partId": 7
+      },
+      {
+        "damageCategoryId": 48,
+        "description": "Para-choque",
+        "partId": 7
+      },
+      {
+        "damageCategoryId": 49,
+        "description": "Para-lama",
+        "partId": 7
+      },
+      {
+        "damageCategoryId": 50,
+        "description": "Vidro",
+        "partId": 7
+      },
+      {
+        "damageCategoryId": 51,
+        "description": "Maçaneta",
+        "partId": 7
+      },
+      {
+        "damageCategoryId": 52,
+        "description": "Calota",
+        "partId": 7
+      },
+      {
+        "damageCategoryId": 53,
+        "description": "Pneu",
+        "partId": 7
+      },
+      {
+        "damageCategoryId": 54,
+        "description": "Lanterna",
+        "partId": 9
+      },
+      {
+        "damageCategoryId": 55,
+        "description": "Porta",
+        "partId": 9
+      },
+      {
+        "damageCategoryId": 56,
+        "description": "Mala",
+        "partId": 9
+      },
+      {
+        "damageCategoryId": 57,
+        "description": "Para-choque",
+        "partId": 9
+      },
+      {
+        "damageCategoryId": 58,
+        "description": "Para-lama",
+        "partId": 9
+      },
+      {
+        "damageCategoryId": 59,
+        "description": "Vidro",
+        "partId": 9
+      },
+      {
+        "damageCategoryId": 60,
+        "description": "Maçaneta",
+        "partId": 9
+      },
+      {
+        "damageCategoryId": 61,
+        "description": "Calota",
+        "partId": 9
+      },
+      {
+        "damageCategoryId": 62,
+        "description": "Pneu",
+        "partId": 9
+      },
+      {
+        "damageCategoryId": 63,
+        "description": "Vidro traseiro",
+        "partId": 8
+      },
+      {
+        "damageCategoryId": 64,
+        "description": "Teto",
+        "partId": 8
+      },
+      {
+        "damageCategoryId": 65,
+        "description": "Capô",
+        "partId": 8
+      },
+      {
+        "damageCategoryId": 66,
+        "description": "Lanternas",
+        "partId": 8
+      },
+      {
+        "damageCategoryId": 67,
+        "description": "Mala",
+        "partId": 8
+      },
+      {
+        "damageCategoryId": 68,
+        "description": "Placa",
+        "partId": 8
+      },
+      {
+        "damageCategoryId": 69,
+        "description": "Para-lama",
+        "partId": 8
+      },
+      {
+        "damageCategoryId": 70,
+        "description": "Para-choque",
+        "partId": 8
+      },
+      {
+        "damageCategoryId": 71,
+        "description": "Banco",
+        "partId": 10
+      },
+      {
+        "damageCategoryId": 72,
+        "description": "Cinto",
+        "partId": 10
+      },
+      {
+        "damageCategoryId": 73,
+        "description": "Marcha",
+        "partId": 10
+      },
+      {
+        "damageCategoryId": 74,
+        "description": "Volante",
+        "partId": 10
+      },
+      {
+        "damageCategoryId": 75,
+        "description": "Retrovisor",
+        "partId": 10
+      },
+      {
+        "damageCategoryId": 76,
+        "description": "Porta luva",
+        "partId": 10
+      },
+      {
+        "damageCategoryId": 77,
+        "description": "Painel",
+        "partId": 10
+      },
+      {
+        "damageCategoryId": 78,
+        "description": "Buzina",
+        "partId": 10
+      },
+      {
+        "damageCategoryId": 79,
+        "description": "Macaco Hidráulico",
+        "partId": 10
+      },
+      {
+        "damageCategoryId": 80,
+        "description": "Caderno",
+        "partId": 10
+      },
+      {
+        "damageCategoryId": 81,
+        "description": "Mochila",
+        "partId": 10
+      },
+      {
+        "damageCategoryId": 82,
+        "description": "Pasta",
+        "partId": 10
+      },
+      {
+        "damageCategoryId": 83,
+        "description": "Smartphone",
+        "partId": 10
+      },
+      {
+        "damageCategoryId": 84,
+        "description": "Computador",
+        "partId": 10
+      },
+      {
+        "damageCategoryId": 85,
+        "description": "Carteira",
+        "partId": 10
+      }
+    ],
+    "commissioners": [],
+    "commissionSettings": []
+  }
+}
