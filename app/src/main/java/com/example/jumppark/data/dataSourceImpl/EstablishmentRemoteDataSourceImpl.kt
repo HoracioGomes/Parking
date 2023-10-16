@@ -6,10 +6,9 @@ import com.example.jumppark.data.model.responses.establishment.EstablishmentResp
 import retrofit2.Response
 
 class EstablishmentRemoteDataSourceImpl(
-    private val establishmentId: String,
     private val service: EstablishmentAPIService
 ) : EstablishmentRemoteDataSource {
-    override suspend fun getEstablishmentInformations(): Response<EstablishmentResponse> {
+    override suspend fun getEstablishmentInformations(establishmentId: String): Response<EstablishmentResponse> {
         return service.getEstablishmentInformations(establishmentId = establishmentId)
     }
 }

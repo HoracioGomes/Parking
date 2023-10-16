@@ -4,5 +4,5 @@ import com.example.jumppark.data.model.responses.establishment.EstablishmentResp
 import com.example.jumppark.data.util.Resource
 
 interface EstablishmentRepository {
-    suspend fun getEstablishmentInformations(): Resource<EstablishmentResponse>
+    suspend fun getEstablishmentInformations(establishmentId: String,): Resource<EstablishmentResponse>
 }

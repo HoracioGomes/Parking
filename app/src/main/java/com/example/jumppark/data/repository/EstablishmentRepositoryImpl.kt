@@ -9,8 +9,8 @@ import com.example.jumppark.domain.repository.EstablishmentRepository
 class EstablishmentRepositoryImpl(
     private val dataSource: EstablishmentRemoteDataSource
 ) : EstablishmentRepository {
-    override suspend fun getEstablishmentInformations(): Resource<EstablishmentResponse> {
-        val response = dataSource.getEstablishmentInformations()
+    override suspend fun getEstablishmentInformations(establishmentId: String,): Resource<EstablishmentResponse> {
+        val response = dataSource.getEstablishmentInformations(establishmentId)
         return responseToResource(response)
     }
 
