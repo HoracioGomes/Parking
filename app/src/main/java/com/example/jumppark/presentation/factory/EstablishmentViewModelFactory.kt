@@ -1,4 +1,4 @@
-package com.example.jumppark.presentation.viewmodel.factory
+package com.example.jumppark.presentation.factory
 
 import android.app.Application
 import androidx.lifecycle.ViewModel

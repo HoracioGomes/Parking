@@ -9,5 +9,5 @@ fun <T> responseToResource(response: Response<T>): Resource<T> {
         }
     }
 
-    return Resource.Error(message = response.message(), data = null)
+    return Resource.Error(message = response.message())
 }
