@@ -4,6 +4,7 @@ import java.time.LocalDateTime
 
 data class Vehicle(
     val model: String,
+    val plate: String,
     val establishmentId: String,
     val parked: Boolean,
     val entryDate: LocalDateTime,

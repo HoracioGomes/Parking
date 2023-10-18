@@ -6,6 +6,6 @@ import kotlinx.coroutines.flow.Flow
 
 class GetParkedVehiclesUseCase(val repository: VehicleRepository) {
     fun execute(): Flow<List<Vehicle>> {
-        return repository.getSavedVehicles()
+            return repository.getSavedVehicles()
     }
 }

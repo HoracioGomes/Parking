@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.example.jumppark.ui.HomeFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home" />
+    <fragment
+        android:id="@+id/parkedVehiclesFragments"
+        android:name="com.example.jumppark.ui.ParkedVehiclesFragment"
+        android:label="fragment_parked_vehicles_fragments"
+        tools:layout="@layout/fragment_parked_vehicles_fragments" />
+    <fragment
+        android:id="@+id/entryFragment"
+        android:name="com.example.jumppark.ui.EntryFragment"
+        android:label="fragment_entry"
+        tools:layout="@layout/fragment_entry" />
+    <fragment
+        android:id="@+id/vehicleDetailsFragment"
+        android:name="com.example.jumppark.ui.VehicleDetailsFragment"
+        android:label="fragment_vehicle_details"
+        tools:layout="@layout/fragment_vehicle_details" />
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.example.jumppark.ui.LoginFragment"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login" />
+    <fragment
+        android:id="@+id/splashScreenFragment"
+        android:name="com.example.jumppark.ui.SplashScreenFragment"
+        android:label="fragment_splash_screen"
+        tools:layout="@layout/fragment_splash_screen" />
+</navigation>
