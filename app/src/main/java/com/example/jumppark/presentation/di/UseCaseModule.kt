@@ -1,6 +1,8 @@
 package com.example.jumppark.presentation.di
 
 import com.example.jumppark.domain.repository.EstablishmentRepository
+import com.example.jumppark.domain.repository.UserRepository
+import com.example.jumppark.domain.usecase.GetLoginUseCase
 import com.example.jumppark.domain.usecase.GetStablishmentInformationUseCase
 import dagger.Module
 import dagger.Provides
@@ -17,5 +19,11 @@ class UseCaseModule {
     fun provideGetStablishmentInformationUseCase(repository: EstablishmentRepository)
             : GetStablishmentInformationUseCase {
         return GetStablishmentInformationUseCase(repository)
+    }
+
+    @Singleton
+    @Provides
+    fun provideGetLoginUseCase(repository: UserRepository): GetLoginUseCase {
+        return GetLoginUseCase(repository)
     }
 }

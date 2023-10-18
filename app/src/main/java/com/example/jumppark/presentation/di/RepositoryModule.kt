@@ -1,7 +1,9 @@
 package com.example.jumppark.presentation.di
 
 import com.example.jumppark.data.dataSource.EstablishmentRemoteDataSource
+import com.example.jumppark.data.dataSource.UserRemoteDataSource
 import com.example.jumppark.data.repository.EstablishmentRepositoryImpl
+import com.example.jumppark.data.repository.UserRepositoryImpl
 import com.example.jumppark.domain.repository.EstablishmentRepository
 import com.example.jumppark.domain.repository.UserRepository
 import dagger.Module
@@ -19,6 +21,12 @@ class RepositoryModule {
     fun providesEstablishmentRepository(establishmentRemoteDataSource: EstablishmentRemoteDataSource)
             : EstablishmentRepository {
         return EstablishmentRepositoryImpl(establishmentRemoteDataSource)
+    }
+
+    @Singleton
+    @Provides
+    fun provideUserRepository(userRemoteDataSource: UserRemoteDataSource): UserRepository {
+        return UserRepositoryImpl(userRemoteDataSource)
     }
 
 }

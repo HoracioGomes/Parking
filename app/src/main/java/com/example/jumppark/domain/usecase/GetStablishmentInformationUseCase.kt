@@ -1,7 +1,7 @@
 package com.example.jumppark.domain.usecase
 
 import com.example.jumppark.data.model.responses.establishment.EstablishmentResponse
-import com.example.jumppark.data.util.Resource
+import com.example.jumppark.data.dataUtils.Resource
 import com.example.jumppark.domain.repository.EstablishmentRepository
 
 

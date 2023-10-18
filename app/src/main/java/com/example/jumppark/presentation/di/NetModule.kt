@@ -1,6 +1,7 @@
 package com.example.jumppark.presentation.di
 
 import com.example.jumppark.data.api.EstablishmentAPIService
+import com.example.jumppark.data.api.UserAPIService
 import com.google.gson.Gson
 import dagger.Module
 import dagger.Provides
@@ -27,5 +28,11 @@ class NetModule {
     @Provides
     fun providesEstablishmentAPIService(retrofit: Retrofit): EstablishmentAPIService {
         return retrofit.create(EstablishmentAPIService::class.java)
+    }
+
+    @Singleton
+    @Provides
+    fun providesUserAPIService(retrofit: Retrofit): UserAPIService {
+        return retrofit.create(UserAPIService::class.java)
     }
 }

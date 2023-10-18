@@ -1,7 +1,6 @@
 package com.example.jumppark.domain.repository
 
 import com.example.jumppark.data.model.Vehicle
-import com.example.jumppark.data.util.Resource
 import kotlinx.coroutines.flow.Flow
 
 

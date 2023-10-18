@@ -1,4 +1,4 @@
-package com.example.jumppark.data.util
+package com.example.jumppark.data.dataUtils
 
 import retrofit2.Response
 

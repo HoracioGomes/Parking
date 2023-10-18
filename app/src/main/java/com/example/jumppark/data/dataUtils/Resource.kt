@@ -1,4 +1,4 @@
-package com.example.jumppark.data.util
+package com.example.jumppark.data.dataUtils
 
 sealed class Resource<T>(
     val data: T? = null,
