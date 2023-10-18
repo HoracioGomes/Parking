@@ -2,6 +2,7 @@ package com.example.jumppark.presentation.di
 
 import android.app.Application
 import com.example.jumppark.domain.usecase.GetStablishmentInformationUseCase
+import com.example.jumppark.presentation.factory.BaseViewModelFactory
 import com.example.jumppark.presentation.factory.EstablishmentViewModelFactory
 import dagger.Module
 import dagger.Provides
@@ -20,5 +21,11 @@ class FactoryModule {
         establisUseCase: GetStablishmentInformationUseCase
     ): EstablishmentViewModelFactory {
         return EstablishmentViewModelFactory(application, establisUseCase)
+    }
+
+    @Singleton
+    @Provides
+    fun provideBaseViewModelFactory(application: Application): BaseViewModelFactory {
+        return BaseViewModelFactory(application)
     }
 }
