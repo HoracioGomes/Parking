@@ -6,18 +6,15 @@ import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import com.airbnb.lottie.LottieAnimationView
 import com.example.jumppark.R
 import com.example.jumppark.databinding.FragmentSplashScreenBinding
 
-class SplashScreenFragment : Fragment() {
+class SplashScreenFragment : BaseFragment() {
 
     private lateinit var binding: FragmentSplashScreenBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
     }
 
     override fun onCreateView(

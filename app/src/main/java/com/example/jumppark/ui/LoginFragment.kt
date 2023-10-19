@@ -5,11 +5,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.jumppark.R
 
-class LoginFragment : Fragment() {
+class LoginFragment : BaseFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
