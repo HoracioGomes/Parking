@@ -6,6 +6,9 @@ import android.view.View
 import androidx.activity.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.ui.setupWithNavController
 import com.example.jumppark.databinding.ActivityMainBinding
 import com.example.jumppark.presentation.factory.BaseViewModelFactory
 import com.example.jumppark.presentation.viewmodel.BaseViewModel
@@ -28,6 +31,14 @@ class MainActivity : AppCompatActivity() {
         mainActivityBinding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(mainActivityBinding.root)
         observeBottomNavBar()
+        setupNavControllerIntoBottomNavBar()
+    }
+
+    private fun setupNavControllerIntoBottomNavBar() {
+        val navHostFragment = supportFragmentManager
+            .findFragmentById(R.id.fragmentContainerView) as NavHostFragment
+        val navController = navHostFragment?.findNavController()
+        navController?.let { mainActivityBinding.mainBnv.setupWithNavController(it) }
     }
 
     private fun observeBottomNavBar() {
