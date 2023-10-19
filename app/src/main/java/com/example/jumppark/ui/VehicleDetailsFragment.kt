@@ -9,6 +9,7 @@ import com.example.jumppark.R
 class VehicleDetailsFragment : BaseFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setToolBarTitle("Detalhes do Veículo")
     }
 
     override fun onCreateView(

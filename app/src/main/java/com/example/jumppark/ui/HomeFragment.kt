@@ -9,6 +9,7 @@ import com.example.jumppark.R
 class HomeFragment : BaseFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setToolBarTitle("Home")
     }
 
     override fun onCreateView(

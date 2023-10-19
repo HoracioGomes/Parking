@@ -3,7 +3,6 @@ package com.example.jumppark
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import androidx.activity.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.NavHostFragment
@@ -30,11 +29,17 @@ class MainActivity : AppCompatActivity() {
         baseViewModel = ViewModelProvider(this, baseViewModelFactory)[BaseViewModel::class.java]
         mainActivityBinding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(mainActivityBinding.root)
+        configToolBar()
+        configBottomNavBar()
+        observeToolBar()
         observeBottomNavBar()
-        setupNavControllerIntoBottomNavBar()
     }
 
-    private fun setupNavControllerIntoBottomNavBar() {
+    private fun configToolBar() {
+        setSupportActionBar(mainActivityBinding.toolbar);
+    }
+
+    private fun configBottomNavBar() {
         val navHostFragment = supportFragmentManager
             .findFragmentById(R.id.fragmentContainerView) as NavHostFragment
         val navController = navHostFragment?.findNavController()
@@ -51,5 +56,16 @@ class MainActivity : AppCompatActivity() {
                     mainActivityBinding.mainBnv.visibility = View.GONE
                 }
             })
+    }
+
+    private fun observeToolBar() {
+        baseViewModel.toolBarVisibility.observe(this, Observer { isVisible ->
+            if (isVisible) {
+                mainActivityBinding.toolbar.visibility = View.VISIBLE
+            } else {
+                mainActivityBinding.toolbar.visibility = View.GONE
+            }
+
+        })
     }
 }

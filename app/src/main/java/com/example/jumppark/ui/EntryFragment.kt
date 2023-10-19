@@ -11,6 +11,7 @@ class EntryFragment : BaseFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setToolBarTitle("Entrada")
     }
 
     override fun onCreateView(
