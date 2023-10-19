@@ -19,10 +19,10 @@ import javax.inject.Inject
 class MainActivity : AppCompatActivity() {
     @Inject
     lateinit var baseViewModelFactory: BaseViewModelFactory
+    lateinit var mainActivityBinding: ActivityMainBinding
 
     companion object {
         lateinit var baseViewModel: BaseViewModel
-        lateinit var mainActivityBinding: ActivityMainBinding
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
