@@ -6,7 +6,10 @@ import retrofit2.http.GET
 import retrofit2.http.Path
 
 interface EstablishmentAPIService {
-    @GET("establishment/{establishmentId}/sync/manual")
-    suspend fun getEstablishmentInformations(@Path("establishmentId") establishmentId: String)
+    @GET("{userId}/establishment/{establishmentId}/sync/manual")
+    suspend fun getEstablishmentInformations(
+        @Path("establishmentId") establishmentId: String,
+        @Path("userId") userId: String
+    )
             : Response<EstablishmentResponse>
 }

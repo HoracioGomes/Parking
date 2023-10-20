@@ -10,7 +10,9 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.jumppark.databinding.ActivityMainBinding
 import com.example.jumppark.presentation.factory.BaseViewModelFactory
+import com.example.jumppark.presentation.factory.EstablishmentViewModelFactory
 import com.example.jumppark.presentation.viewmodel.BaseViewModel
+import com.example.jumppark.presentation.viewmodel.EstablishmentViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -18,21 +20,32 @@ import javax.inject.Inject
 class MainActivity : AppCompatActivity() {
     @Inject
     lateinit var baseViewModelFactory: BaseViewModelFactory
+    @Inject
+    lateinit var establishmentViewModelFactory: EstablishmentViewModelFactory
     lateinit var mainActivityBinding: ActivityMainBinding
 
     companion object {
         lateinit var baseViewModel: BaseViewModel
+        lateinit var establishmentViewModel: EstablishmentViewModel
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        baseViewModel = ViewModelProvider(this, baseViewModelFactory)[BaseViewModel::class.java]
+        initViewModels()
         mainActivityBinding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(mainActivityBinding.root)
         configToolBar()
         configBottomNavBar()
         observeToolBar()
         observeBottomNavBar()
+    }
+
+    private fun initViewModels() {
+        baseViewModel = ViewModelProvider(this, baseViewModelFactory)[BaseViewModel::class.java]
+        establishmentViewModel = ViewModelProvider(
+            this,
+            establishmentViewModelFactory
+        )[EstablishmentViewModel::class.java]
     }
 
     private fun configToolBar() {

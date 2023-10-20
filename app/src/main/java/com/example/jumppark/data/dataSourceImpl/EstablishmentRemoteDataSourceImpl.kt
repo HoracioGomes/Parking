@@ -8,7 +8,7 @@ import retrofit2.Response
 class EstablishmentRemoteDataSourceImpl(
     private val service: EstablishmentAPIService
 ) : EstablishmentRemoteDataSource {
-    override suspend fun getEstablishmentInformations(establishmentId: String): Response<EstablishmentResponse> {
-        return service.getEstablishmentInformations(establishmentId = establishmentId)
+    override suspend fun getEstablishmentInformations(establishmentId: String, userId: String): Response<EstablishmentResponse> {
+        return service.getEstablishmentInformations(establishmentId = establishmentId, userId = userId)
     }
 }

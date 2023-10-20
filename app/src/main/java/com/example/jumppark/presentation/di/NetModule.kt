@@ -1,12 +1,13 @@
 package com.example.jumppark.presentation.di
 
+import com.example.jumppark.presentation.presentationUtils.AuthInterceptor
 import com.example.jumppark.data.api.EstablishmentAPIService
 import com.example.jumppark.data.api.UserAPIService
-import com.google.gson.Gson
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
@@ -15,12 +16,16 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 class NetModule {
 
+
     @Singleton
     @Provides
     fun provideRetrofit(): Retrofit {
+        val token = ""
+        val interceptor = AuthInterceptor(token)
         return Retrofit.Builder()
             .addConverterFactory(GsonConverterFactory.create())
-            .baseUrl("https://dev.app.jumpparkapi.com.br/api")
+            .client(OkHttpClient.Builder().addInterceptor(interceptor).build())
+            .baseUrl("https://dev.app.jumpparkapi.com.br/api/")
             .build()
     }
 
