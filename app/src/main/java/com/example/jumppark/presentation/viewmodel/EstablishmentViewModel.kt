@@ -28,10 +28,10 @@ class EstablishmentViewModel(
                     val requestResult = establishmentUseCase.execute(establishmentId = establishmentId, userId = userId)
                     _establishmentLiveData.postValue(requestResult)
                 } else {
-                    _establishmentLiveData.postValue(Resource.Error(message = app.getString(R.string.internet_is_not_available)))
+                    _establishmentLiveData.postValue(Resource.Error(data = null, message = app.getString(R.string.internet_is_not_available)))
                 }
             } catch (e: Exception) {
-                _establishmentLiveData.postValue(Resource.Error(message = e.message.toString()))
+                _establishmentLiveData.postValue(Resource.Error(data = null, message = e.message.toString()))
             }
         }
 

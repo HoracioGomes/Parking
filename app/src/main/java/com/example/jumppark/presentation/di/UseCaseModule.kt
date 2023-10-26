@@ -3,6 +3,7 @@ package com.example.jumppark.presentation.di
 import com.example.jumppark.domain.repository.EstablishmentRepository
 import com.example.jumppark.domain.repository.UserRepository
 import com.example.jumppark.domain.usecase.GetLoginUseCase
+import com.example.jumppark.domain.usecase.GetLogoutUseCase
 import com.example.jumppark.domain.usecase.GetStablishmentInformationUseCase
 import dagger.Module
 import dagger.Provides
@@ -25,5 +26,11 @@ class UseCaseModule {
     @Provides
     fun provideGetLoginUseCase(repository: UserRepository): GetLoginUseCase {
         return GetLoginUseCase(repository)
+    }
+
+    @Singleton
+    @Provides
+    fun provideGetLogoutUseCase(repository: UserRepository): GetLogoutUseCase {
+        return GetLogoutUseCase(repository)
     }
 }

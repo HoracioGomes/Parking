@@ -4,4 +4,8 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="prefs_file_name">secure_prefs</string>
+    <string name="home_toolbar_title">Home</string>
+    <string name="entry_toolbar_title">Entrada</string>
+    <string name="parked_vehicles_toolbar_title">Veículos no Pátio</string>
+    <string name="vehicle_details_toolbar_title">Detalhes do Veículo</string>
 </resources>

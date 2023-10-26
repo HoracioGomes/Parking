@@ -2,6 +2,7 @@ package com.example.jumppark.presentation.viewmodel
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.jumppark.R
@@ -20,28 +21,31 @@ class UserViewModel(
     private val loginUseCase: GetLoginUseCase,
     private val logoutUseCase: GetLogoutUseCase
 ) : AndroidViewModel(app) {
-    val userLoginLiveData: MutableLiveData<Resource<LoginResponse>> = MutableLiveData()
-    val userLogoutLiveData: MutableLiveData<Resource<LogoutResponse>> = MutableLiveData()
+    private val _userLoginLiveData: MutableLiveData<Resource<LoginResponse>> = MutableLiveData()
+    private val _userLogoutLiveData: MutableLiveData<Resource<LogoutResponse>> = MutableLiveData()
 
-    fun getLogin(user: UserLogin) {
+    val userLoginLiveData: LiveData<Resource<LoginResponse>> get() = _userLoginLiveData
+    val userLogoutLiveData: LiveData<Resource<LogoutResponse>> get() = _userLogoutLiveData
+
+    fun fetchLogin(user: UserLogin) {
         viewModelScope.launch(Dispatchers.IO) {
-            userLoginLiveData.postValue(Resource.Loading())
+            _userLoginLiveData.postValue(Resource.Loading())
             try {
                 if (isNetworkAvailable(app)) {
                     val requestResult = loginUseCase.execute(user)
-                    userLoginLiveData.postValue(requestResult)
+                    _userLoginLiveData.postValue(requestResult)
                 } else {
-                    userLoginLiveData.postValue(Resource.Error(message = app.getString(R.string.internet_is_not_available)))
+                    _userLoginLiveData.postValue(Resource.Error(data = null, message = app.getString(R.string.internet_is_not_available)))
                 }
             } catch (e: Exception) {
-                userLoginLiveData.postValue(Resource.Error(message = e.message.toString()))
+                _userLoginLiveData.postValue(Resource.Error(data = null, message = e.message.toString()))
             }
         }
     }
 
-    fun getLogout(userId: String, establishmentId: String, sessionId: String) {
+    fun fetchLogout(userId: String, establishmentId: String, sessionId: String) {
         viewModelScope.launch(Dispatchers.IO) {
-            userLogoutLiveData.postValue(Resource.Loading())
+            _userLogoutLiveData.postValue(Resource.Loading())
             try {
                 if (isNetworkAvailable(app)) {
                     val requestResult = logoutUseCase.execute(
@@ -49,13 +53,21 @@ class UserViewModel(
                         establishmentId = establishmentId,
                         sessionId = sessionId
                     )
-                    userLogoutLiveData.postValue(requestResult)
+                    _userLogoutLiveData.postValue(requestResult)
                 } else {
-                    userLogoutLiveData.postValue(Resource.Error(message = app.getString(R.string.internet_is_not_available)))
+                    _userLogoutLiveData.postValue(Resource.Error(data = null, message = app.getString(R.string.internet_is_not_available)))
                 }
             } catch (e: Exception) {
-                userLogoutLiveData.postValue(Resource.Error(message = e.message.toString()))
+                _userLogoutLiveData.postValue(Resource.Error(data = null, message = e.message.toString()))
             }
         }
+    }
+
+    fun getLoginData(): LiveData<Resource<LoginResponse>> {
+        return userLoginLiveData
+    }
+
+    fun getLogoutData(): LiveData<Resource<LogoutResponse>> {
+        return userLogoutLiveData
     }
 }
