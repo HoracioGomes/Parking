@@ -4,16 +4,19 @@ import android.app.Application
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.jumppark.domain.usecase.GetStablishmentInformationUseCase
-import com.example.jumppark.presentation.viewmodel.EstablishmentViewModel
+import com.example.jumppark.domain.usecase.LaunchEntryUseCase
+import com.example.jumppark.presentation.viewmodel.ParkViewModel
 
-class EstablishmentViewModelFactory(
+class ParkViewModelFactory(
     private val app: Application,
-    private val establishmentUseCase: GetStablishmentInformationUseCase
+    private val getEstablishmentUseCase: GetStablishmentInformationUseCase,
+    private val launchEntryUseCase: LaunchEntryUseCase
 ) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        return EstablishmentViewModel(
+        return ParkViewModel(
             app,
-            establishmentUseCase
+            getEstablishmentUseCase,
+            launchEntryUseCase
         ) as T
     }
 }

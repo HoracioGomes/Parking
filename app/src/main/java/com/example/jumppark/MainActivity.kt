@@ -1,21 +1,17 @@
 package com.example.jumppark
 
-import android.app.Application
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.View
 import android.widget.ProgressBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.security.crypto.EncryptedSharedPreferences
-import androidx.security.crypto.MasterKeys
 import com.example.jumppark.databinding.ActivityMainBinding
 import com.example.jumppark.presentation.factory.BaseViewModelFactory
-import com.example.jumppark.presentation.factory.EstablishmentViewModelFactory
+import com.example.jumppark.presentation.factory.ParkViewModelFactory
 import com.example.jumppark.presentation.factory.UserViewModelFactory
 import com.example.jumppark.presentation.viewmodel.BaseViewModel
-import com.example.jumppark.presentation.viewmodel.EstablishmentViewModel
+import com.example.jumppark.presentation.viewmodel.ParkViewModel
 import com.example.jumppark.presentation.viewmodel.UserViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
@@ -27,7 +23,7 @@ class MainActivity : AppCompatActivity() {
     lateinit var baseViewModelFactory: BaseViewModelFactory
 
     @Inject
-    lateinit var establishmentViewModelFactory: EstablishmentViewModelFactory
+    lateinit var parkViewModelFactory: ParkViewModelFactory
 
     @Inject
     lateinit var userViewModelFactory: UserViewModelFactory
@@ -39,7 +35,7 @@ class MainActivity : AppCompatActivity() {
     lateinit var mainBnv: BottomNavigationView
     companion object {
         lateinit var baseViewModel: BaseViewModel
-        lateinit var establishmentViewModel: EstablishmentViewModel
+        lateinit var parkViewModel: ParkViewModel
         lateinit var userViewModel: UserViewModel
     }
 
@@ -56,10 +52,10 @@ class MainActivity : AppCompatActivity() {
     }
     private fun initViewModels() {
         baseViewModel = ViewModelProvider(this, baseViewModelFactory)[BaseViewModel::class.java]
-        establishmentViewModel = ViewModelProvider(
+        parkViewModel = ViewModelProvider(
             this,
-            establishmentViewModelFactory
-        )[EstablishmentViewModel::class.java]
+            parkViewModelFactory
+        )[ParkViewModel::class.java]
         userViewModel = ViewModelProvider(this, userViewModelFactory).get(UserViewModel::class.java)
     }
 

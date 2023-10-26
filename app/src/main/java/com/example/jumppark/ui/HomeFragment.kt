@@ -10,7 +10,7 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.jumppark.MainActivity
-import com.example.jumppark.MainActivity.Companion.establishmentViewModel
+import com.example.jumppark.MainActivity.Companion.parkViewModel
 import com.example.jumppark.R
 import com.example.jumppark.data.dataUtils.Resource
 import com.example.jumppark.databinding.FragmentHomeBinding
@@ -40,12 +40,12 @@ class HomeFragment : BaseFragment() {
         binding = FragmentHomeBinding.bind(view)
         findNavController()?.let { (activity as MainActivity).mainBnv.setupWithNavController(it) }
 
-        establishmentViewModel.fetchEstablishmentInformations(
+        parkViewModel.fetchEstablishmentInformations(
             establishmentId = "${sharedPreferences.getString("${SharedPreferencesKeys.establishmentId}", "")}",
             userId = "${sharedPreferences.getString("${SharedPreferencesKeys.userId}", "")}"
 
         )
-        establishmentViewModel.getEstablishmentData()
+        parkViewModel.getEstablishmentData()
             .observe(viewLifecycleOwner, Observer { response ->
 
                 when (response) {
