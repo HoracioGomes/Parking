@@ -1,6 +1,6 @@
 package com.example.jumppark.data.model.responses.establishment
 
-data class Item(
+data class ItemPrice(
     val establishmentId: Int,
     val itemId: Int,
     val period: Int,

@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.Flow
 
 class VoucherRepositoryImpl(private val dataSource: VoucherLocalDataSource) : VoucherRepository {
     override suspend fun saveVoucher(voucher: Voucher) {
-        dataSource.saveVoucher(voucher)
+        return dataSource.saveVoucher(voucher)
     }
 
     override fun getSavedVoucher(): Flow<List<Voucher>> {

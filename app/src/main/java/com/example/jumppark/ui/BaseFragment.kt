@@ -50,12 +50,12 @@ open class BaseFragment : Fragment() {
     }
 
     protected fun showProgressbar() {
-        (activity as MainActivity).progressBar.visibility = View.VISIBLE
+        (activity as MainActivity).showLoading()
 
     }
 
     protected fun hideProgressbar() {
-        (activity as MainActivity).progressBar.visibility = View.GONE
+        (activity as MainActivity).hideLoading()
 
     }
 

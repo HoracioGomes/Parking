@@ -28,13 +28,26 @@ class ParkViewModel(
             try {
                 if (isNetworkAvailable(app)) {
                     _establishmentLiveData.postValue(Resource.Loading())
-                    val requestResult = getEstablishmentUseCase.execute(establishmentId = establishmentId, userId = userId)
+                    val requestResult = getEstablishmentUseCase.execute(
+                        establishmentId = establishmentId,
+                        userId = userId
+                    )
                     _establishmentLiveData.postValue(requestResult)
                 } else {
-                    _establishmentLiveData.postValue(Resource.Error(data = null, message = app.getString(R.string.internet_is_not_available)))
+                    _establishmentLiveData.postValue(
+                        Resource.Error(
+                            data = null,
+                            message = app.getString(R.string.internet_is_not_available)
+                        )
+                    )
                 }
             } catch (e: Exception) {
-                _establishmentLiveData.postValue(Resource.Error(data = null, message = e.message.toString()))
+                _establishmentLiveData.postValue(
+                    Resource.Error(
+                        data = null,
+                        message = e.message.toString()
+                    )
+                )
             }
         }
 

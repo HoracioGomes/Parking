@@ -8,6 +8,6 @@ class VoucherLocalDataSourceImpl(
     private val voucherDAO: VoucherDAO
 ) : VoucherLocalDataSource {
     override suspend fun saveVoucher(voucher: Voucher) {
-        voucherDAO.insert(voucher)
+        return voucherDAO.insert(voucher)
     }
 }

@@ -2,7 +2,7 @@ package com.example.jumppark
 
 import android.os.Bundle
 import android.view.View
-import android.widget.ProgressBar
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -28,11 +28,12 @@ class MainActivity : AppCompatActivity() {
     @Inject
     lateinit var userViewModelFactory: UserViewModelFactory
 
-    lateinit var mainActivityBinding: ActivityMainBinding
+    private lateinit var mainActivityBinding: ActivityMainBinding
 
-    lateinit var progressBar: ProgressBar
+    private lateinit var loading: AlertDialog
 
     lateinit var mainBnv: BottomNavigationView
+
     companion object {
         lateinit var baseViewModel: BaseViewModel
         lateinit var parkViewModel: ParkViewModel
@@ -44,12 +45,23 @@ class MainActivity : AppCompatActivity() {
         initViewModels()
         configActivityBinding()
         setContentView(mainActivityBinding.root)
-        configProgressBar()
         configBottomNavigation()
         configToolBar()
         observeToolBar()
         observeBottomNavBar()
+        configAlertLoading()
+
     }
+
+    private fun configAlertLoading() {
+        val progresBar = layoutInflater.inflate(R.layout.progressbar_layout, null)
+        loading = AlertDialog.Builder(this)
+            .setView(progresBar)
+            .setCancelable(false)
+            .create()
+        loading.window?.setBackgroundDrawableResource(android.R.color.transparent)
+    }
+
     private fun initViewModels() {
         baseViewModel = ViewModelProvider(this, baseViewModelFactory)[BaseViewModel::class.java]
         parkViewModel = ViewModelProvider(
@@ -61,10 +73,6 @@ class MainActivity : AppCompatActivity() {
 
     private fun configActivityBinding() {
         mainActivityBinding = ActivityMainBinding.inflate(layoutInflater)
-    }
-
-    private fun configProgressBar() {
-        progressBar = mainActivityBinding.mainProgressbar
     }
 
     private fun configBottomNavigation() {
@@ -96,5 +104,17 @@ class MainActivity : AppCompatActivity() {
             }
 
         })
+    }
+
+    fun showLoading() {
+        if (!loading.isShowing) {
+            loading.show()
+        }
+    }
+
+    fun hideLoading() {
+        if (loading.isShowing) {
+            loading.dismiss()
+        }
     }
 }
