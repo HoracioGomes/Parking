@@ -2,7 +2,6 @@ package com.example.jumppark.ui
 
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,6 +9,7 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.jumppark.MainActivity
+import com.example.jumppark.MainActivity.Companion.baseViewModel
 import com.example.jumppark.MainActivity.Companion.parkViewModel
 import com.example.jumppark.R
 import com.example.jumppark.data.dataUtils.Resource
@@ -24,6 +24,7 @@ class HomeFragment : BaseFragment() {
     @Inject
     lateinit var sharedPreferences: SharedPreferences
     private lateinit var binding: FragmentHomeBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setToolBarTitle(getString(R.string.home_toolbar_title))
@@ -39,19 +40,20 @@ class HomeFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         binding = FragmentHomeBinding.bind(view)
         findNavController()?.let { (activity as MainActivity).mainBnv.setupWithNavController(it) }
+        LoadRemoteData()
+    }
+
+    private fun LoadRemoteData() {
 
         parkViewModel.fetchEstablishmentInformations(
             establishmentId = "${sharedPreferences.getString("${SharedPreferencesKeys.establishmentId}", "")}",
-            userId = "${sharedPreferences.getString("${SharedPreferencesKeys.userId}", "")}"
+            userId = "${sharedPreferences.getString("${SharedPreferencesKeys.userId}", "")}")
 
-        )
         parkViewModel.getEstablishmentData()
-            .observe(viewLifecycleOwner, Observer { response ->
-
+            .observe(viewLifecycleOwner) { response ->
                 when (response) {
                     is Resource.Success -> {
-                        hideProgressbar()
-                        Log.d("Teste", response.data?.data?.paymentMethods?.size.toString())
+                        loadLocalData()
                     }
 
                     is Resource.Loading -> {
@@ -70,7 +72,14 @@ class HomeFragment : BaseFragment() {
                     }
                 }
 
-            })
+            }
+    }
+
+    private fun loadLocalData() {
+        parkViewModel.getVouchers().observe(viewLifecycleOwner, Observer { list ->
+            baseViewModel.setVouchers(list)
+            hideProgressbar()
+        })
     }
 
 }

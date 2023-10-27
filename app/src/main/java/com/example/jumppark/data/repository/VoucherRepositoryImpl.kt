@@ -11,7 +11,7 @@ class VoucherRepositoryImpl(private val dataSource: VoucherLocalDataSource) : Vo
     }
 
     override fun getSavedVoucher(): Flow<List<Voucher>> {
-        TODO("Not yet implemented")
+        return dataSource.getSavedVouchers()
     }
 
     override fun searchVoucher(query: String): Flow<List<Voucher>> {

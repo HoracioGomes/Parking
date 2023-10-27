@@ -5,6 +5,7 @@ import com.example.jumppark.domain.repository.UserRepository
 import com.example.jumppark.domain.repository.VoucherRepository
 import com.example.jumppark.domain.usecase.GetLoginUseCase
 import com.example.jumppark.domain.usecase.GetLogoutUseCase
+import com.example.jumppark.domain.usecase.GetParkedVoucherUseCase
 import com.example.jumppark.domain.usecase.GetStablishmentInformationUseCase
 import com.example.jumppark.domain.usecase.LaunchEntryUseCase
 import dagger.Module
@@ -40,5 +41,11 @@ class UseCaseModule {
     @Provides
     fun providesLauchEntryUseCase(repository: VoucherRepository): LaunchEntryUseCase {
         return LaunchEntryUseCase(repository)
+    }
+
+    @Singleton
+    @Provides
+    fun providesGetParkedVouchersUseCase(repository: VoucherRepository): GetParkedVoucherUseCase {
+        return GetParkedVoucherUseCase(repository)
     }
 }

@@ -3,6 +3,7 @@ package com.example.jumppark.presentation.di
 import android.app.Application
 import com.example.jumppark.domain.usecase.GetLoginUseCase
 import com.example.jumppark.domain.usecase.GetLogoutUseCase
+import com.example.jumppark.domain.usecase.GetParkedVoucherUseCase
 import com.example.jumppark.domain.usecase.GetStablishmentInformationUseCase
 import com.example.jumppark.domain.usecase.LaunchEntryUseCase
 import com.example.jumppark.presentation.factory.BaseViewModelFactory
@@ -23,9 +24,13 @@ class FactoryModule {
     fun provideParkViewModelFactory(
         application: Application,
         getEstablishmentInfoUseCase: GetStablishmentInformationUseCase,
-        launchEntryUseCase: LaunchEntryUseCase
+        launchEntryUseCase: LaunchEntryUseCase,
+        getParkedVoucherUseCase: GetParkedVoucherUseCase
     ): ParkViewModelFactory {
-        return ParkViewModelFactory(application, getEstablishmentInfoUseCase, launchEntryUseCase)
+        return ParkViewModelFactory(
+            application, getEstablishmentInfoUseCase,
+            launchEntryUseCase, getParkedVoucherUseCase
+        )
     }
 
     @Singleton

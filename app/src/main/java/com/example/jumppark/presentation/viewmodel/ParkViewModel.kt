@@ -4,21 +4,25 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.liveData
 import androidx.lifecycle.viewModelScope
 import com.example.jumppark.R
 import com.example.jumppark.data.dataUtils.Resource
 import com.example.jumppark.data.model.Voucher
 import com.example.jumppark.data.model.responses.establishment.EstablishmentResponse
+import com.example.jumppark.domain.usecase.GetParkedVoucherUseCase
 import com.example.jumppark.domain.usecase.GetStablishmentInformationUseCase
 import com.example.jumppark.domain.usecase.LaunchEntryUseCase
 import com.example.jumppark.presentation.presentationUtils.isNetworkAvailable
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.FlowCollector
 import kotlinx.coroutines.launch
 
 class ParkViewModel(
     private val app: Application,
     private val getEstablishmentUseCase: GetStablishmentInformationUseCase,
-    private val launchEntryUseCase: LaunchEntryUseCase
+    private val launchEntryUseCase: LaunchEntryUseCase,
+    private val getParkedVoucherUseCase: GetParkedVoucherUseCase
 ) : AndroidViewModel(app) {
     private val _establishmentLiveData = MutableLiveData<Resource<EstablishmentResponse>>()
     private val establishmentLiveData: LiveData<Resource<EstablishmentResponse>> get() = _establishmentLiveData
@@ -57,5 +61,11 @@ class ParkViewModel(
 
     fun saveVoucher(voucher: Voucher) = viewModelScope.launch {
         launchEntryUseCase.execute(voucher)
+    }
+
+    fun getVouchers() = liveData {
+        getParkedVoucherUseCase.execute().collect(FlowCollector { list ->
+            emit(list)
+        })
     }
 }
