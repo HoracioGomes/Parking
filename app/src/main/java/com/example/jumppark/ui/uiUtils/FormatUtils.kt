@@ -1,5 +1,7 @@
 package com.example.jumppark.ui.uiUtils
 
+import java.text.DecimalFormat
+
 fun formatPrices(minutes: Int?, value: String?): String {
     val formatedValue = value?.replace(".", ",")
 
@@ -37,3 +39,9 @@ fun formatMinutes(minutes: Int?): String {
     }
     return ""
 }
+
+fun formatDoubleToReais(valor: Double?): String {
+    val formato = DecimalFormat("R$ #,##0.00")
+    return formato.format(valor)
+}
+

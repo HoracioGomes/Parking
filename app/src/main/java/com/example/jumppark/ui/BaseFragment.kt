@@ -64,7 +64,6 @@ open class BaseFragment : Fragment() {
     protected fun loadLocalData() {
         parkViewModel.getVouchers().observe(viewLifecycleOwner, Observer { list ->
             baseViewModel.setVouchers(list)
-            hideProgressbar()
         })
     }
 

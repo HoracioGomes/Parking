@@ -13,6 +13,7 @@ import com.example.jumppark.R
 import com.example.jumppark.data.dataUtils.Resource
 import com.example.jumppark.databinding.FragmentHomeBinding
 import com.example.jumppark.ui.uiUtils.SharedPreferencesKeys
+import com.example.jumppark.ui.uiUtils.formatDoubleToReais
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -22,6 +23,7 @@ class HomeFragment : BaseFragment() {
     @Inject
     lateinit var sharedPreferences: SharedPreferences
     private lateinit var binding: FragmentHomeBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setToolBarTitle(getString(R.string.home_toolbar_title))
@@ -38,13 +40,35 @@ class HomeFragment : BaseFragment() {
         binding = FragmentHomeBinding.bind(view)
         findNavController()?.let { (activity as MainActivity).mainBnv.setupWithNavController(it) }
         LoadRemoteData()
+        setDataObserver()
+    }
+
+    private fun setDataObserver() {
+        baseViewModel.loadedData.observe(viewLifecycleOwner, Observer { loaded ->
+            if (loaded) {
+                setInformationsIntoLayout()
+                hideProgressbar()
+            }
+        })
+    }
+
+    private fun setInformationsIntoLayout() {
+        binding.parkingVehicles.text = baseViewModel.getTotalParkedVehicles().toString()
+        binding.informationsInclude.paymentsAmountCollected.text =
+            formatDoubleToReais(baseViewModel.getTotalVouchersValue())
+        binding.informationsInclude.billCollected.text =
+            formatDoubleToReais(baseViewModel.getTotalBillPayment())
+        binding.informationsInclude.moneyCollected.text =
+            formatDoubleToReais(baseViewModel.getTotalMoneyPayment())
+        binding.informationsInclude.pixCollected.text =
+            formatDoubleToReais(baseViewModel.getTotalPixPayment())
+        binding.informationsInclude.creditCollected.text =
+            formatDoubleToReais(baseViewModel.getTotalCreditPayment())
+        binding.informationsInclude.debitCollected.text =
+            formatDoubleToReais(baseViewModel.getTotalDebitPayment())
     }
 
     private fun LoadRemoteData() {
-
-        parkViewModel.fetchEstablishmentInformations(
-            establishmentId = "${sharedPreferences.getString("${SharedPreferencesKeys.establishmentId}", "")}",
-            userId = "${sharedPreferences.getString("${SharedPreferencesKeys.userId}", "")}")
 
         parkViewModel.getEstablishmentData()
             .observe(viewLifecycleOwner) { response ->
@@ -70,6 +94,17 @@ class HomeFragment : BaseFragment() {
                 }
 
             }
+
+        parkViewModel.fetchEstablishmentInformations(
+            establishmentId = "${
+                sharedPreferences.getString(
+                    "${SharedPreferencesKeys.establishmentId}",
+                    ""
+                )
+            }",
+            userId = "${sharedPreferences.getString("${SharedPreferencesKeys.userId}", "")}"
+        )
+
     }
 
 }

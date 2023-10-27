@@ -8,4 +8,5 @@
     <string name="entry_toolbar_title">Entrada</string>
     <string name="parked_vehicles_toolbar_title">Veículos no Pátio</string>
     <string name="vehicle_details_toolbar_title">Detalhes do Veículo</string>
+    <string name="loading">Loading...</string>
 </resources>

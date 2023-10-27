@@ -79,8 +79,6 @@ class EntryFragment : BaseFragment() {
         parked = true,
         predictedValue = selectedPrice,
         predictedMin = selectedPeriod,
-        surplusValue = null,
-        paidValue = null,
         paid = false,
         paymentMethodId = null,
         paymentMethodName = null,
