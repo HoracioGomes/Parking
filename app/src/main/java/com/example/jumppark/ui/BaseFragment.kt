@@ -5,14 +5,23 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import com.example.jumppark.MainActivity
-import com.example.jumppark.MainActivity.Companion.baseViewModel
 import com.example.jumppark.R
+import com.example.jumppark.presentation.viewmodel.BaseViewModel
+import com.example.jumppark.presentation.viewmodel.ParkViewModel
+import com.example.jumppark.presentation.viewmodel.UserViewModel
 import com.example.jumppark.ui.uiUtils.FragmentNames
 
 open class BaseFragment : Fragment() {
+    protected lateinit var baseViewModel: BaseViewModel
+    protected lateinit var parkViewModel: ParkViewModel
+    protected lateinit var userViewModel: UserViewModel
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        baseViewModel = (activity as MainActivity).baseViewModel
+        parkViewModel = (activity as MainActivity).parkViewModel
+        userViewModel = (activity as MainActivity).userViewModel
         switchViewsVisibility()
     }
 
@@ -22,6 +31,9 @@ open class BaseFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         return inflater.inflate(R.layout.fragment_base, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     }
 
     private fun switchViewsVisibility() {
@@ -47,6 +59,13 @@ open class BaseFragment : Fragment() {
 
     protected fun setToolBarTitle(title: String) {
         (activity as MainActivity).supportActionBar?.title = title
+    }
+
+    protected fun loadLocalData() {
+        parkViewModel.getVouchers().observe(viewLifecycleOwner, Observer { list ->
+            baseViewModel.setVouchers(list)
+            hideProgressbar()
+        })
     }
 
     protected fun showProgressbar() {

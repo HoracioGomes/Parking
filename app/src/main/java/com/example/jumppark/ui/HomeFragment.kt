@@ -9,8 +9,6 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.jumppark.MainActivity
-import com.example.jumppark.MainActivity.Companion.baseViewModel
-import com.example.jumppark.MainActivity.Companion.parkViewModel
 import com.example.jumppark.R
 import com.example.jumppark.data.dataUtils.Resource
 import com.example.jumppark.databinding.FragmentHomeBinding
@@ -24,7 +22,6 @@ class HomeFragment : BaseFragment() {
     @Inject
     lateinit var sharedPreferences: SharedPreferences
     private lateinit var binding: FragmentHomeBinding
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setToolBarTitle(getString(R.string.home_toolbar_title))
@@ -73,13 +70,6 @@ class HomeFragment : BaseFragment() {
                 }
 
             }
-    }
-
-    private fun loadLocalData() {
-        parkViewModel.getVouchers().observe(viewLifecycleOwner, Observer { list ->
-            baseViewModel.setVouchers(list)
-            hideProgressbar()
-        })
     }
 
 }

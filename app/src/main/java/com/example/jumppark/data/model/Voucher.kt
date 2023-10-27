@@ -23,4 +23,19 @@ data class Voucher(
     val exitDate: String?,
     val paymentDate: String?,
     val establishmentId: Long?
-)
+){
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (javaClass != other?.javaClass) return false
+
+        other as Voucher
+
+        if (plate != other.plate) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        return plate?.hashCode() ?: 0
+    }
+}

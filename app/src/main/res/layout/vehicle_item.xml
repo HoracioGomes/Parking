@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#96BD93"
+        android:padding="10dp">
+
+        <TextView
+            android:id="@+id/label_plate"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Placa: "
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/plate"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="6dp"
+            android:text="A3D44444"
+            app:layout_constraintStart_toEndOf="@id/label_plate"
+            app:layout_constraintTop_toTopOf="@id/label_plate" />
+
+        <TextView
+            android:id="@+id/predicted_time_label"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Previsto: "
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/label_plate" />
+
+        <TextView
+            android:id="@+id/predicted_time"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="6dp"
+            android:text="1 hora"
+            app:layout_constraintStart_toEndOf="@id/predicted_time_label"
+            app:layout_constraintTop_toTopOf="@id/predicted_time_label" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/black"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+</LinearLayout>

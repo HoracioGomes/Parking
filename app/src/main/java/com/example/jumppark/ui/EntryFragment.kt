@@ -5,11 +5,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
-import com.example.jumppark.MainActivity.Companion.parkViewModel
+import com.example.jumppark.MainActivity
 import com.example.jumppark.R
 import com.example.jumppark.data.model.Voucher
 import com.example.jumppark.data.model.responses.establishment.ItemPrice
 import com.example.jumppark.databinding.FragmentEntryBinding
+import com.example.jumppark.presentation.viewmodel.ParkViewModel
 import com.example.jumppark.ui.adapters.PriceSpinnerAdapter
 import com.example.jumppark.ui.uiUtils.getDate
 import com.google.android.material.snackbar.Snackbar

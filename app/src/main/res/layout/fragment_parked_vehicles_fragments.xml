@@ -6,40 +6,17 @@
     android:layout_height="match_parent"
     tools:context=".ui.ParkedVehiclesFragment">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        >
+        android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/vehicle1"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_parked_vehicles"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Vehicle 1"
-            android:textAlignment="center"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            tools:listitem="@layout/vehicle_item" />
 
-        <TextView
-            android:id="@+id/vehicle2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textAlignment="center"
-            android:text="Vehicle 2"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/vehicle1" />
-
-        <TextView
-            android:id="@+id/vehicle3"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textAlignment="center"
-            android:text="Vehicle 3"
-            app:layout_constraintTop_toBottomOf="@id/vehicle2"
-            tools:layout_editor_absoluteX="0dp" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
 
 </FrameLayout>

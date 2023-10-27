@@ -27,19 +27,12 @@ class MainActivity : AppCompatActivity() {
 
     @Inject
     lateinit var userViewModelFactory: UserViewModelFactory
-
     private lateinit var mainActivityBinding: ActivityMainBinding
-
     private lateinit var loading: AlertDialog
-
     lateinit var mainBnv: BottomNavigationView
-
-    companion object {
-        lateinit var baseViewModel: BaseViewModel
-        lateinit var parkViewModel: ParkViewModel
-        lateinit var userViewModel: UserViewModel
-    }
-
+    lateinit var baseViewModel: BaseViewModel
+    lateinit var parkViewModel: ParkViewModel
+    lateinit var userViewModel: UserViewModel
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         initViewModels()
