@@ -28,7 +28,11 @@
         android:id="@+id/vehicleDetailsFragment"
         android:name="com.example.jumppark.ui.VehicleDetailsFragment"
         android:label="fragment_vehicle_details"
-        tools:layout="@layout/fragment_vehicle_details" />
+        tools:layout="@layout/fragment_vehicle_details" >
+        <argument
+            android:name="selectedVoucher"
+            app:argType="com.example.jumppark.data.model.Voucher" />
+    </fragment>
     <fragment
         android:id="@+id/loginFragment"
         android:name="com.example.jumppark.ui.LoginFragment"

@@ -30,14 +30,14 @@ fun formatMinutes(minutes: Int?): String {
             val hour = minutes / 60
             val min = minutes % 60
 
-            val formatedHour = if (hour == 1) "$hour hora" else if (hour > 1) "$hour horas" else ""
+            val formatedHour = if (hour == 1) "$hour hora" else if (hour > 1) "$hour horas" else "00:"
             val formatedMin =
-                if (min == 1) "$min minuto" else if (hour > 1) " e $min minutos" else ""
+                if (min == 1) "$min minuto" else if (hour > 1) " e $min minutos" else "00"
 
             return "$formatedHour$formatedMin"
         }
     }
-    return ""
+    return "00:00"
 }
 
 fun formatDoubleToReais(valor: Double?): String {

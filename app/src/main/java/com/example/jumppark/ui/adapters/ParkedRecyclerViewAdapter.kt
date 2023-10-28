@@ -45,6 +45,15 @@ class ParkedRecyclerViewAdapter() :
         fun binding(voucher: Voucher) {
             binding.plate.text = voucher.plate.toString()
             binding.predictedTime.text = formatMinutes(voucher.predictedMin)
+
+            binding.root.setOnClickListener {
+                clickListener?.let { clickListener -> clickListener(voucher) }
+            }
         }
+    }
+
+    private var clickListener: ((Voucher) -> Unit)? = null
+    fun setOnClickListener(listener: (Voucher) -> Unit) {
+        clickListener = listener
     }
 }

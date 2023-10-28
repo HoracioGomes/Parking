@@ -5,14 +5,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
-import com.example.jumppark.MainActivity
 import com.example.jumppark.R
 import com.example.jumppark.data.model.Voucher
 import com.example.jumppark.data.model.responses.establishment.ItemPrice
 import com.example.jumppark.databinding.FragmentEntryBinding
-import com.example.jumppark.presentation.viewmodel.ParkViewModel
 import com.example.jumppark.ui.adapters.PriceSpinnerAdapter
-import com.example.jumppark.ui.uiUtils.getDate
+import com.example.jumppark.ui.uiUtils.getStringDate
 import com.google.android.material.snackbar.Snackbar
 
 class EntryFragment : BaseFragment() {
@@ -38,7 +36,7 @@ class EntryFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         binding = FragmentEntryBinding.bind(view)
-        val prices = parkViewModel.getEstablishmentData().value?.data?.data?.prices?.get(0)?.items
+        val prices = parkViewModel.getPrices()
         addPricesToList(prices)
         setSpinnerAdapter()
         spinnerListener()
@@ -52,7 +50,7 @@ class EntryFragment : BaseFragment() {
             carColor = binding.etCor.text.toString()
 
             if (checkFields()) {
-                val entrydate = getDate()
+                val entrydate = getStringDate()
                 val voucher = createEntryVoucher(entrydate)
                 parkViewModel.saveVoucher(voucher)
                 clearInputTexts()

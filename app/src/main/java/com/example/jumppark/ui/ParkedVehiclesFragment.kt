@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.jumppark.MainActivity
 import com.example.jumppark.R
@@ -31,6 +32,13 @@ class ParkedVehiclesFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         binding = FragmentParkedVehiclesFragmentsBinding.bind(view)
         configRecyclerView()
+        parkedAdapter.setOnClickListener { voucher ->
+            val bundle = Bundle().apply {
+                putSerializable("selectedVoucher", voucher)
+            }
+
+            findNavController().navigate(ParkedVehiclesFragmentDirections.actionParkedVehiclesFragmentsToVehicleDetailsFragment(voucher))
+        }
         showProgressbar()
         loadLocalData()
         baseViewModel.vouchers.observe(viewLifecycleOwner, Observer { list ->

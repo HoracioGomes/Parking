@@ -23,7 +23,7 @@ data class Voucher(
     val exitDate: String?,
     val paymentDate: String?,
     val establishmentId: Long?
-){
+) : java.io.Serializable {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (javaClass != other?.javaClass) return false

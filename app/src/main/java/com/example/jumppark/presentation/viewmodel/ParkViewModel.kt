@@ -10,13 +10,16 @@ import com.example.jumppark.R
 import com.example.jumppark.data.dataUtils.Resource
 import com.example.jumppark.data.model.Voucher
 import com.example.jumppark.data.model.responses.establishment.EstablishmentResponse
+import com.example.jumppark.data.model.responses.establishment.ItemPrice
 import com.example.jumppark.domain.usecase.GetParkedVoucherUseCase
 import com.example.jumppark.domain.usecase.GetStablishmentInformationUseCase
 import com.example.jumppark.domain.usecase.LaunchEntryUseCase
 import com.example.jumppark.presentation.presentationUtils.isNetworkAvailable
+import com.example.jumppark.ui.uiUtils.getDifferMinBetweenEntryExit
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.FlowCollector
 import kotlinx.coroutines.launch
+import java.util.Date
 
 class ParkViewModel(
     private val app: Application,
@@ -67,5 +70,39 @@ class ParkViewModel(
         getParkedVoucherUseCase.execute().collect(FlowCollector { list ->
             emit(list)
         })
+    }
+
+    fun getTolerance(): Int {
+        return _establishmentLiveData.value?.data?.data?.prices?.get(0)?.tolerance ?: 0
+    }
+
+    fun getmaximumPeriod(): Int{
+        return _establishmentLiveData.value?.data?.data?.prices?.get(0)?.maximumPeriod ?: 0
+    }
+
+    fun getmaximumValue(): String{
+        return _establishmentLiveData.value?.data?.data?.prices?.get(0)?.maximumValue ?: ""
+    }
+    fun getPrices(): List<ItemPrice>? {
+        return _establishmentLiveData.value?.data?.data?.prices?.get(0)?.items
+    }
+
+    fun calcTotalPayable(entryDate: Date?): Double{
+        val priceItems = getPrices()
+        val consummatedMinutes = getDifferMinBetweenEntryExit(entryDate)
+        var payableValue = 0.0
+        if (priceItems != null) {
+            for (item in priceItems) {
+                if (item.since != 0 && consummatedMinutes >= item.since) {
+                    val posHours = (consummatedMinutes / item.period).toInt()
+                    return posHours * (item.price.toDouble())
+                } else {
+                    if (consummatedMinutes >= (item.period + getTolerance())) {
+                        payableValue = if (item.price.toDouble() > payableValue) item.price.toDouble() else payableValue
+                    }
+                }
+            }
+        }
+        return payableValue
     }
 }
