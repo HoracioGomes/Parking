@@ -3,4 +3,28 @@
     <style name="NoBorderTextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
         <item name="boxBackgroundMode">none</item>
     </style>
+
+    <style name="ButtonGreenStyleCurved">
+        <item name="background">@drawable/shape_curved_button</item>
+        <item name="backgroundTint">@color/green_jump</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="ButtonBlueStyleCurved">
+        <item name="background">@drawable/shape_curved_button</item>
+        <item name="backgroundTint">@color/blue_jump</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="ButtonGreenStyleSquare" parent="Widget.AppCompat.Button">
+        <item name="background">@drawable/shape_square_button</item>
+        <item name="backgroundTint">@color/green_jump</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="ButtonBlueStyleSquare" parent="Widget.AppCompat.Button">
+        <item name="background">@drawable/shape_square_button</item>
+        <item name="backgroundTint">@color/blue_jump</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
 </resources>
