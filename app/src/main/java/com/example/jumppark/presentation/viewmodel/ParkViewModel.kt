@@ -76,33 +76,71 @@ class ParkViewModel(
         return _establishmentLiveData.value?.data?.data?.prices?.get(0)?.tolerance ?: 0
     }
 
-    fun getmaximumPeriod(): Int{
+    fun getmaximumPeriod(): Int {
         return _establishmentLiveData.value?.data?.data?.prices?.get(0)?.maximumPeriod ?: 0
     }
 
-    fun getmaximumValue(): String{
+    fun getmaximumValue(): String {
         return _establishmentLiveData.value?.data?.data?.prices?.get(0)?.maximumValue ?: ""
     }
+
     fun getPrices(): List<ItemPrice>? {
         return _establishmentLiveData.value?.data?.data?.prices?.get(0)?.items
     }
 
-    fun calcTotalPayable(entryDate: Date?): Double{
+    private fun calcLowerValuePosToleranceToPayableValue(entryDate: Date?): Double {
         val priceItems = getPrices()
         val consummatedMinutes = getDifferMinBetweenEntryExit(entryDate)
         var payableValue = 0.0
-        if (priceItems != null) {
-            for (item in priceItems) {
-                if (item.since != 0 && consummatedMinutes >= item.since) {
-                    val posHours = (consummatedMinutes / item.period)
-                    return posHours * (item.price.toDouble())
-                } else {
-                    if (consummatedMinutes >= (item.period + getTolerance())) {
-                        payableValue = if (item.price.toDouble() > payableValue) item.price.toDouble() else payableValue
-                    }
+
+        if (consummatedMinutes > getTolerance()) {
+            if (priceItems != null) {
+                payableValue = priceItems[0].price.toDouble()
+                for (itemPrice in priceItems) {
+                    payableValue =
+                        if (itemPrice.price.toDouble() < payableValue) itemPrice.price.toDouble() else payableValue
                 }
             }
         }
         return payableValue
     }
+
+
+    private fun calcPayableTableValue(entryDate: Date?): Double {
+        val priceItems = getPrices()
+        val consummatedMinutes = getDifferMinBetweenEntryExit(entryDate)
+        var payableValue = calcLowerValuePosToleranceToPayableValue(entryDate)
+        if (priceItems != null) {
+            for (itemPrice in priceItems) {
+                if (consummatedMinutes >= (itemPrice.period + getTolerance())) {
+                    payableValue =
+                        if (itemPrice.price.toDouble() > payableValue) itemPrice.price.toDouble() else payableValue
+                }
+            }
+        }
+        return payableValue
+    }
+
+    fun calcSinceAndLimitsToFinalPayableValue(entryDate: Date?): Double {
+        val initialPayableValue = calcPayableTableValue(entryDate)
+        val priceItems = getPrices()
+        val consummatedMinutes = getDifferMinBetweenEntryExit(entryDate)
+        if (priceItems != null) {
+            for (itemPrice in priceItems) {
+                if (itemPrice.since in 1..consummatedMinutes) {
+                    val posConsummatedMinutes = consummatedMinutes - itemPrice.since
+                    val posConsummatedHours = (posConsummatedMinutes / itemPrice.period)
+                    val sinceValue = posConsummatedHours * (itemPrice.price.toDouble())
+                    return initialPayableValue.plus(sinceValue)
+                }
+            }
+        }
+        return if (consummatedMinutes <= getmaximumPeriod() && initialPayableValue > getmaximumValue().toDouble()) {
+            getmaximumValue().toDouble()
+        } else {
+            initialPayableValue
+        }
+    }
+
+
 }

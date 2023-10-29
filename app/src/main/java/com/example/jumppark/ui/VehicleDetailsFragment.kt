@@ -92,7 +92,7 @@ class VehicleDetailsFragment : BaseFragment() {
     }
 
     private fun setTotalPayable(entryDate: Date?): String {
-        return formatDoubleToReais(parkViewModel.calcTotalPayable(entryDate))
+        return formatDoubleToReais(parkViewModel.calcSinceAndLimitsToFinalPayableValue(entryDate))
     }
 
     private fun configPaymentMethods(parkViewModel: ParkViewModel) {

@@ -23,16 +23,16 @@ fun formatPrices(minutes: Int?, value: String?): String {
 }
 
 fun formatMinutes(minutes: Int?): String {
-    if (minutes != null) {
+    if (minutes != null && minutes != 0) {
         if (minutes < 60) {
             return if (minutes == 1) "$minutes minuto" else if (minutes > 1) "$minutes minutos" else ""
         } else {
             val hour = minutes / 60
             val min = minutes % 60
 
-            val formatedHour = if (hour == 1) "$hour hora" else if (hour > 1) "$hour horas" else "00:"
+            val formatedHour = if (hour == 1) "$hour hora" else if (hour > 1) "$hour horas" else ""
             val formatedMin =
-                if (min == 1) "$min minuto" else if (hour > 1) " e $min minutos" else "00"
+                if (min == 1) "$min minuto" else if (min > 1) " e $min minutos" else ""
 
             return "$formatedHour$formatedMin"
         }
