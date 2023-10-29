@@ -58,7 +58,10 @@ open class BaseFragment : Fragment() {
     }
 
     protected fun setToolBarTitle(title: String) {
-        (activity as MainActivity).supportActionBar?.title = title
+        val activity = activity as? MainActivity
+        if (activity != null) {
+            activity.mainActivityBinding.toolbarTitle.text = title
+        }
     }
 
     protected fun loadInitialLocalData() {

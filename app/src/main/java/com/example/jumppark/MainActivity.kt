@@ -27,7 +27,7 @@ class MainActivity : AppCompatActivity() {
 
     @Inject
     lateinit var userViewModelFactory: UserViewModelFactory
-    private lateinit var mainActivityBinding: ActivityMainBinding
+    lateinit var mainActivityBinding: ActivityMainBinding
     private lateinit var loading: AlertDialog
     lateinit var mainBnv: BottomNavigationView
     lateinit var baseViewModel: BaseViewModel
