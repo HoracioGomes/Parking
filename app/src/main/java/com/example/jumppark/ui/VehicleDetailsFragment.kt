@@ -1,8 +1,10 @@
 package com.example.jumppark.ui
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.OnClickListener
 import android.view.ViewGroup
 import android.widget.RadioButton
 import androidx.navigation.fragment.navArgs
@@ -11,6 +13,7 @@ import com.example.jumppark.R
 import com.example.jumppark.data.model.Voucher
 import com.example.jumppark.databinding.FragmentVehicleDetailsBinding
 import com.example.jumppark.presentation.viewmodel.ParkViewModel
+import com.example.jumppark.ui.uiUtils.DialogUtils
 import com.example.jumppark.ui.uiUtils.formatDoubleToReais
 import com.example.jumppark.ui.uiUtils.formatMinutes
 import com.example.jumppark.ui.uiUtils.formatStringToDate
@@ -43,9 +46,26 @@ class VehicleDetailsFragment : BaseFragment() {
         configPaymentMethods(parkViewModel)
 
         bind.btnGetExit.setOnClickListener {
-
+            configDialog()
         }
     }
+
+    private fun configDialog() {
+        context?.let { context ->
+            DialogUtils(context).showDefaultDialog(
+                "Teste",
+                "testando",
+                dialogConfirmAction,
+                dialogCancelAction
+            )
+        }
+    }
+
+    private val dialogConfirmAction =
+        OnClickListener { Log.d("teste", "Clicou confirm") }
+
+    private val dialogCancelAction =
+        OnClickListener { Log.d("teste", "Clicou calcel") }
 
     private fun configDetailsFields(selectedVoucher: Voucher?) {
         if (selectedVoucher != null) {

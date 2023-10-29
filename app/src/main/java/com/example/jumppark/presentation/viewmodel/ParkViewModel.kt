@@ -94,7 +94,7 @@ class ParkViewModel(
         if (priceItems != null) {
             for (item in priceItems) {
                 if (item.since != 0 && consummatedMinutes >= item.since) {
-                    val posHours = (consummatedMinutes / item.period).toInt()
+                    val posHours = (consummatedMinutes / item.period)
                     return posHours * (item.price.toDouble())
                 } else {
                     if (consummatedMinutes >= (item.period + getTolerance())) {
