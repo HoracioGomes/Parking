@@ -61,10 +61,22 @@ open class BaseFragment : Fragment() {
         (activity as MainActivity).supportActionBar?.title = title
     }
 
-    protected fun loadLocalData() {
+    protected fun loadInitialLocalData() {
+        showProgressbar()
+        baseViewModel.setLoadedData(false)
         parkViewModel.getVouchers().observe(viewLifecycleOwner, Observer { list ->
             baseViewModel.setVouchers(list)
         })
+
+    }
+
+    protected fun loadParkedLocalData() {
+        showProgressbar()
+        baseViewModel.setLoadedDataParkedList(false)
+        parkViewModel.getParkedVouchers().observe(viewLifecycleOwner, Observer { list ->
+            baseViewModel.setParkedVouchers(list)
+        })
+
     }
 
     protected fun showProgressbar() {

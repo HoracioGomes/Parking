@@ -1,12 +1,13 @@
 package com.example.jumppark.ui
 
+import android.app.AlertDialog
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.OnClickListener
 import android.view.ViewGroup
 import android.widget.RadioButton
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.jumppark.MainActivity
 import com.example.jumppark.R
@@ -18,12 +19,14 @@ import com.example.jumppark.ui.uiUtils.formatDoubleToReais
 import com.example.jumppark.ui.uiUtils.formatMinutes
 import com.example.jumppark.ui.uiUtils.formatStringToDate
 import com.example.jumppark.ui.uiUtils.getDifferMinBetweenEntryExit
+import com.example.jumppark.ui.uiUtils.getStringDate
+import com.google.android.material.snackbar.Snackbar
 import java.util.Date
 
 class VehicleDetailsFragment : BaseFragment() {
     private lateinit var bind: FragmentVehicleDetailsBinding
     private var selectedVoucher: Voucher? = null
-    private var selectedPaymentName: String = ""
+    var getExitDialog: AlertDialog? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setToolBarTitle(getString(R.string.vehicle_details_toolbar_title))
@@ -46,26 +49,49 @@ class VehicleDetailsFragment : BaseFragment() {
         configPaymentMethods(parkViewModel)
 
         bind.btnGetExit.setOnClickListener {
-            configDialog()
+            getExitDialog = configDialog()
+            getExitDialog?.show()
         }
     }
 
-    private fun configDialog() {
+    private fun configDialog(): AlertDialog? {
         context?.let { context ->
-            DialogUtils(context).showDefaultDialog(
-                "Teste",
-                "testando",
+            return DialogUtils(context).createDefaultDialog(
+                "Finalizar",
+                "Realizar Saída do Veículo?",
                 dialogConfirmAction,
                 dialogCancelAction
             )
         }
+
+        return null
     }
 
     private val dialogConfirmAction =
-        OnClickListener { Log.d("teste", "Clicou confirm") }
+        OnClickListener {
+
+            selectedVoucher?.paymentMethodName = parkViewModel.getSelectedPaymentMethodValue().value
+            selectedVoucher?.paymentMethodId =
+                parkViewModel.getSelectedPaymentMethodId().value?.toLong()
+            selectedVoucher?.parked = false
+            selectedVoucher?.exitDate = getStringDate()
+            selectedVoucher?.finished = true
+            selectedVoucher?.paid = true
+            selectedVoucher?.paidValue = parkViewModel.getTotalPayableValue().value ?: 0.0
+            selectedVoucher?.paymentDate = getStringDate()
+
+            selectedVoucher?.let { voucher -> parkViewModel.saveVoucher(voucher) }
+
+            getExitDialog?.dismiss()
+
+            Snackbar.make(bind.root, "Registrado!", Snackbar.LENGTH_SHORT).show()
+            findNavController().navigate(VehicleDetailsFragmentDirections.actionVehicleDetailsFragmentToParkedVehiclesFragment())
+        }
 
     private val dialogCancelAction =
-        OnClickListener { Log.d("teste", "Clicou calcel") }
+        OnClickListener {
+            getExitDialog?.dismiss()
+        }
 
     private fun configDetailsFields(selectedVoucher: Voucher?) {
         if (selectedVoucher != null) {
@@ -96,13 +122,17 @@ class VehicleDetailsFragment : BaseFragment() {
     }
 
     private fun configPaymentMethods(parkViewModel: ParkViewModel) {
+        parkViewModel.setSelectedPaymentMethodValue("")
+        parkViewModel.setSelectedPaymentMethodId(0)
+
         val paymentsMethod = parkViewModel.getEstablishmentData().value?.data?.data?.paymentMethods
         if (paymentsMethod != null) {
             for (method in paymentsMethod) {
                 val radioButton = RadioButton(activity)
                 radioButton.text = method.paymentMethodName
                 radioButton.setOnClickListener {
-                    selectedPaymentName = method.paymentMethodName
+                    parkViewModel.setSelectedPaymentMethodValue(method.paymentMethodName)
+                    parkViewModel.setSelectedPaymentMethodId(method.primitivePaymentMethodId)
                 }
                 bind.paymentsMethodRadioGroup.addView(radioButton)
             }

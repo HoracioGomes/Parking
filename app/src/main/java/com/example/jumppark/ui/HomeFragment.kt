@@ -74,7 +74,7 @@ class HomeFragment : BaseFragment() {
             .observe(viewLifecycleOwner) { response ->
                 when (response) {
                     is Resource.Success -> {
-                        loadLocalData()
+                        loadInitialLocalData()
                     }
 
                     is Resource.Loading -> {

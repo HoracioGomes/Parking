@@ -7,22 +7,21 @@ import androidx.room.PrimaryKey
 data class Voucher(
     @PrimaryKey(autoGenerate = true)
     val id: Long?,
-    val model: String?,
-    val plate: String?,
-    val color: String?,
-    val parked: Boolean?,
-    val predictedValue: Double = 0.0,
-    val predictedMin: Int?,
-    val surplusValue: Double = 0.0,
-    val paidValue: Double = 0.0,
-    val paid: Boolean?,
-    val paymentMethodId: Long?,
-    val paymentMethodName: String?,
-    val finished: Boolean?,
-    val entryDate: String?,
-    val exitDate: String?,
-    val paymentDate: String?,
-    val establishmentId: Long?
+    var model: String?,
+    var plate: String?,
+    var color: String?,
+    var parked: Boolean?,
+    var predictedValue: Double = 0.0,
+    var predictedMin: Int?,
+    var paidValue: Double = 0.0,
+    var paid: Boolean?,
+    var paymentMethodId: Long?,
+    var paymentMethodName: String?,
+    var finished: Boolean?,
+    var entryDate: String?,
+    var exitDate: String?,
+    var paymentDate: String?,
+    var establishmentId: Long?
 ) : java.io.Serializable {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true

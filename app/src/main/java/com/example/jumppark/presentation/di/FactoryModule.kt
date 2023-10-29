@@ -3,7 +3,7 @@ package com.example.jumppark.presentation.di
 import android.app.Application
 import com.example.jumppark.domain.usecase.GetLoginUseCase
 import com.example.jumppark.domain.usecase.GetLogoutUseCase
-import com.example.jumppark.domain.usecase.GetParkedVoucherUseCase
+import com.example.jumppark.domain.usecase.GetSavedVoucherUseCase
 import com.example.jumppark.domain.usecase.GetStablishmentInformationUseCase
 import com.example.jumppark.domain.usecase.LaunchEntryUseCase
 import com.example.jumppark.presentation.factory.BaseViewModelFactory
@@ -25,11 +25,11 @@ class FactoryModule {
         application: Application,
         getEstablishmentInfoUseCase: GetStablishmentInformationUseCase,
         launchEntryUseCase: LaunchEntryUseCase,
-        getParkedVoucherUseCase: GetParkedVoucherUseCase
+        getSavedVoucherUseCase: GetSavedVoucherUseCase
     ): ParkViewModelFactory {
         return ParkViewModelFactory(
             application, getEstablishmentInfoUseCase,
-            launchEntryUseCase, getParkedVoucherUseCase
+            launchEntryUseCase, getSavedVoucherUseCase
         )
     }
 

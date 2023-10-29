@@ -11,7 +11,7 @@ import com.example.jumppark.data.dataUtils.Resource
 import com.example.jumppark.data.model.Voucher
 import com.example.jumppark.data.model.responses.establishment.EstablishmentResponse
 import com.example.jumppark.data.model.responses.establishment.ItemPrice
-import com.example.jumppark.domain.usecase.GetParkedVoucherUseCase
+import com.example.jumppark.domain.usecase.GetSavedVoucherUseCase
 import com.example.jumppark.domain.usecase.GetStablishmentInformationUseCase
 import com.example.jumppark.domain.usecase.LaunchEntryUseCase
 import com.example.jumppark.presentation.presentationUtils.isNetworkAvailable
@@ -25,10 +25,23 @@ class ParkViewModel(
     private val app: Application,
     private val getEstablishmentUseCase: GetStablishmentInformationUseCase,
     private val launchEntryUseCase: LaunchEntryUseCase,
-    private val getParkedVoucherUseCase: GetParkedVoucherUseCase
+    private val getSavedVoucherUseCase: GetSavedVoucherUseCase
 ) : AndroidViewModel(app) {
     private val _establishmentLiveData = MutableLiveData<Resource<EstablishmentResponse>>()
     private val establishmentLiveData: LiveData<Resource<EstablishmentResponse>> get() = _establishmentLiveData
+
+    private val _totalPayableValueLiveData = MutableLiveData<Double>()
+    private val totalPayableValueLiveData: LiveData<Double> get() = _totalPayableValueLiveData
+
+    private val _selectedPaymentMethodLiveData = MutableLiveData<String>()
+    private val selectedPaymentMethodLiveData: LiveData<String> get() = _selectedPaymentMethodLiveData
+
+    private val _consummatedMinutesLiveData = MutableLiveData<Int>()
+    private val consummatedMinutesLiveData: LiveData<Int> get() = _consummatedMinutesLiveData
+
+    private val _selectedPaymentMethodIdLiveData = MutableLiveData<Int>()
+    private val selectedPaymentMethodIdLiveData: LiveData<Int> get() = _selectedPaymentMethodIdLiveData
+
 
     fun fetchEstablishmentInformations(establishmentId: String, userId: String) =
         viewModelScope.launch(Dispatchers.IO) {
@@ -62,12 +75,38 @@ class ParkViewModel(
         return establishmentLiveData
     }
 
+    fun getSelectedPaymentMethodValue(): LiveData<String> {
+        return selectedPaymentMethodLiveData
+    }
+
+    fun setSelectedPaymentMethodValue(data: String) {
+        _selectedPaymentMethodLiveData.value = data
+    }
+
+    fun getSelectedPaymentMethodId(): LiveData<Int> {
+        return selectedPaymentMethodIdLiveData
+    }
+
+    fun setSelectedPaymentMethodId(data: Int) {
+        _selectedPaymentMethodIdLiveData.value = data
+    }
+
+    fun getTotalPayableValue(): LiveData<Double> {
+        return totalPayableValueLiveData
+    }
+
     fun saveVoucher(voucher: Voucher) = viewModelScope.launch {
         launchEntryUseCase.execute(voucher)
     }
 
     fun getVouchers() = liveData {
-        getParkedVoucherUseCase.execute().collect(FlowCollector { list ->
+        getSavedVoucherUseCase.execute().collect(FlowCollector { list ->
+            emit(list)
+        })
+    }
+
+    fun getParkedVouchers() = liveData {
+        getSavedVoucherUseCase.execute(true).collect(FlowCollector { list ->
             emit(list)
         })
     }
@@ -88,57 +127,68 @@ class ParkViewModel(
         return _establishmentLiveData.value?.data?.data?.prices?.get(0)?.items
     }
 
-    private fun calcLowerValuePosToleranceToPayableValue(entryDate: Date?): Double {
-        val priceItems = getPrices()
-        val consummatedMinutes = getDifferMinBetweenEntryExit(entryDate)
-        var payableValue = 0.0
+    private fun calcLowerValuePosToleranceToPayableValue(entryDate: Date?) {
+        _totalPayableValueLiveData.value = 0.0
+        _consummatedMinutesLiveData.value = getDifferMinBetweenEntryExit(entryDate)
+        val consummatedMinutes = consummatedMinutesLiveData.value
+        var payableValue = totalPayableValueLiveData.value
 
-        if (consummatedMinutes > getTolerance()) {
-            if (priceItems != null) {
-                payableValue = priceItems[0].price.toDouble()
-                for (itemPrice in priceItems) {
-                    payableValue =
-                        if (itemPrice.price.toDouble() < payableValue) itemPrice.price.toDouble() else payableValue
+
+        val priceItems = getPrices()
+        if (consummatedMinutes != null) {
+            if (consummatedMinutes > getTolerance()) {
+                if (priceItems != null) {
+                    payableValue = priceItems[0].price.toDouble()
+                    for (itemPrice in priceItems) {
+                        payableValue =
+                            if (itemPrice.price.toDouble() < payableValue ?: 0.0) itemPrice.price.toDouble() else payableValue
+                    }
                 }
             }
         }
-        return payableValue
+        _totalPayableValueLiveData.value = payableValue ?: 0.0
     }
 
 
-    private fun calcPayableTableValue(entryDate: Date?): Double {
+    private fun calcPayableTableValue(entryDate: Date?) {
+        calcLowerValuePosToleranceToPayableValue(entryDate)
         val priceItems = getPrices()
-        val consummatedMinutes = getDifferMinBetweenEntryExit(entryDate)
-        var payableValue = calcLowerValuePosToleranceToPayableValue(entryDate)
+        val consummatedMinutes = consummatedMinutesLiveData.value
+        var payableValue = totalPayableValueLiveData.value
         if (priceItems != null) {
             for (itemPrice in priceItems) {
-                if (consummatedMinutes >= (itemPrice.period + getTolerance())) {
+                if (consummatedMinutes ?: 0 >= (itemPrice.period + getTolerance())) {
                     payableValue =
-                        if (itemPrice.price.toDouble() > payableValue) itemPrice.price.toDouble() else payableValue
+                        if (itemPrice.price.toDouble() > payableValue ?: 0.0) itemPrice.price.toDouble() else payableValue
                 }
             }
         }
-        return payableValue
+        _totalPayableValueLiveData.value = payableValue ?: 0.0
     }
 
     fun calcSinceAndLimitsToFinalPayableValue(entryDate: Date?): Double {
-        val initialPayableValue = calcPayableTableValue(entryDate)
+        calcPayableTableValue(entryDate)
+        var initialPayableValue = totalPayableValueLiveData.value
+        val consummatedMinutes = consummatedMinutesLiveData.value
         val priceItems = getPrices()
-        val consummatedMinutes = getDifferMinBetweenEntryExit(entryDate)
         if (priceItems != null) {
             for (itemPrice in priceItems) {
-                if (itemPrice.since in 1..consummatedMinutes) {
-                    val posConsummatedMinutes = consummatedMinutes - itemPrice.since
+                if (itemPrice.since > 1 && consummatedMinutes ?: 0 >= itemPrice.since) {
+                    val posConsummatedMinutes = consummatedMinutes ?: 0 - itemPrice.since
                     val posConsummatedHours = (posConsummatedMinutes / itemPrice.period)
                     val sinceValue = posConsummatedHours * (itemPrice.price.toDouble())
-                    return initialPayableValue.plus(sinceValue)
+                    initialPayableValue = sinceValue + initialPayableValue!!
                 }
             }
         }
-        return if (consummatedMinutes <= getmaximumPeriod() && initialPayableValue > getmaximumValue().toDouble()) {
-            getmaximumValue().toDouble()
+
+        _totalPayableValueLiveData.value = initialPayableValue ?: 0.0
+
+        return if (consummatedMinutes ?: 0 <= getmaximumPeriod() && initialPayableValue ?: 0.0 > getmaximumValue().toDouble()) {
+            _totalPayableValueLiveData.value = getmaximumValue().toDouble()
+            return totalPayableValueLiveData.value ?: 0.0
         } else {
-            initialPayableValue
+            return totalPayableValueLiveData.value ?: 0.0
         }
     }
 

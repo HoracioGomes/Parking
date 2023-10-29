@@ -6,7 +6,7 @@ import com.example.jumppark.data.model.Voucher
 
 @Database(
     entities = [Voucher::class],
-    version = 3,
+    version = 1,
     exportSchema = false
 )
 abstract class ParkDatabase : RoomDatabase() {

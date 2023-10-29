@@ -32,6 +32,9 @@
         <argument
             android:name="selectedVoucher"
             app:argType="com.example.jumppark.data.model.Voucher" />
+        <action
+            android:id="@+id/action_vehicleDetailsFragment_to_parkedVehiclesFragment"
+            app:destination="@id/parkedVehiclesFragment" />
     </fragment>
     <fragment
         android:id="@+id/loginFragment"

@@ -7,11 +7,8 @@ import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.jumppark.MainActivity
 import com.example.jumppark.R
 import com.example.jumppark.databinding.FragmentParkedVehiclesFragmentsBinding
-import com.example.jumppark.presentation.viewmodel.BaseViewModel
-import com.example.jumppark.presentation.viewmodel.ParkViewModel
 import com.example.jumppark.ui.adapters.ParkedRecyclerViewAdapter
 
 class ParkedVehiclesFragment : BaseFragment() {
@@ -31,20 +28,21 @@ class ParkedVehiclesFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         binding = FragmentParkedVehiclesFragmentsBinding.bind(view)
-        configRecyclerView()
-        parkedAdapter.setOnClickListener { voucher ->
-            val bundle = Bundle().apply {
-                putSerializable("selectedVoucher", voucher)
+        loadParkedLocalData()
+        baseViewModel.loadedDataParkedList.observe(viewLifecycleOwner, Observer { loaded ->
+            if (loaded) {
+                configRecyclerView()
+                popularRecyclerView()
+                hideProgressbar()
             }
+        })
 
-            findNavController().navigate(ParkedVehiclesFragmentDirections.actionParkedVehiclesFragmentsToVehicleDetailsFragment(voucher))
-        }
-        showProgressbar()
-        loadLocalData()
-        baseViewModel.vouchers.observe(viewLifecycleOwner, Observer { list ->
+    }
+
+    private fun popularRecyclerView() {
+        baseViewModel.parkedVouchers.observe(viewLifecycleOwner, Observer { list ->
             list?.let {
                 parkedAdapter.differ.submitList(list)
-                hideProgressbar()
             }
         })
     }
@@ -55,6 +53,14 @@ class ParkedVehiclesFragment : BaseFragment() {
         binding.rvParkedVehicles.apply {
             adapter = parkedAdapter
             layoutManager = LinearLayoutManager(activity)
+        }
+
+        parkedAdapter.setOnClickListener { voucher ->
+            findNavController().navigate(
+                ParkedVehiclesFragmentDirections.actionParkedVehiclesFragmentsToVehicleDetailsFragment(
+                    voucher
+                )
+            )
         }
     }
 

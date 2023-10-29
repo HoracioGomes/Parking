@@ -16,5 +16,9 @@ class VoucherLocalDataSourceImpl(
         return voucherDAO.getVouchers()
     }
 
+    override fun getParkedVouchers(): Flow<List<Voucher>> {
+        return voucherDAO.getParkedVouchers()
+    }
+
 
 }

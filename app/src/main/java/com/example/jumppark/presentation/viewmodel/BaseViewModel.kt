@@ -14,10 +14,14 @@ class BaseViewModel(
     private val _toolBarVisibility = MutableLiveData<Boolean>()
     private val _vouchers = MutableLiveData<MutableList<Voucher>>()
     private val _loadedData = MutableLiveData<Boolean>()
+    private val _parkedVouchers = MutableLiveData<MutableList<Voucher>>()
+    private val _loadedDataParkedList = MutableLiveData<Boolean>()
     val bottomNavVisibility: LiveData<Boolean> get() = _bottomNavVisibility
     val toolBarVisibility: LiveData<Boolean> get() = _toolBarVisibility
     val vouchers: LiveData<MutableList<Voucher>> get() = _vouchers
     val loadedData: LiveData<Boolean> get() = _loadedData
+    val parkedVouchers: LiveData<MutableList<Voucher>> get() = _parkedVouchers
+    val loadedDataParkedList: LiveData<Boolean> get() = _loadedDataParkedList
 
     fun setBottomNavVisibility(isVisible: Boolean) {
         _bottomNavVisibility.value = isVisible
@@ -29,7 +33,20 @@ class BaseViewModel(
 
     fun setVouchers(vouchers: List<Voucher>) {
         _vouchers.value = vouchers.toMutableList()
-        _loadedData.value = true
+        setLoadedData(true)
+    }
+
+    fun setLoadedData(status: Boolean){
+        _loadedData.value = status
+    }
+
+    fun setParkedVouchers(vouchers: List<Voucher>) {
+        _parkedVouchers.value = vouchers.toMutableList()
+        setLoadedDataParkedList(true)
+    }
+
+    fun setLoadedDataParkedList(status: Boolean){
+        _loadedDataParkedList.value = status
     }
 
     fun getTotalVouchersValue(): Double? {

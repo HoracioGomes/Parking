@@ -8,4 +8,6 @@ interface VoucherLocalDataSource {
     suspend fun saveVoucher(voucher: Voucher)
 
     fun getSavedVouchers(): Flow<List<Voucher>>
+
+    fun getParkedVouchers(): Flow<List<Voucher>>
 }

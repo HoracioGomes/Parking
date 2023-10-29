@@ -14,4 +14,7 @@ interface VoucherDAO {
 
     @Query("SELECT * FROM vouchers")
     fun getVouchers():Flow<List<Voucher>>
+
+    @Query("SELECT * FROM vouchers AS v WHERE v.parked == 1")
+    fun getParkedVouchers():Flow<List<Voucher>>
 }
