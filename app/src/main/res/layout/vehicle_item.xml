@@ -4,55 +4,73 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@drawable/shape_item_vehicle"
     android:orientation="vertical">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#96BD93"
         android:padding="10dp">
 
         <TextView
-            android:id="@+id/label_plate"
+            android:id="@+id/model"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Placa: "
+            android:layout_marginLeft="11dp"
+            android:layout_marginTop="6dp"
+            android:text="Gol"
+            android:textColor="@color/black"
+            android:textSize="12sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/label_entry"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="6dp"
+            android:text="Entrada:"
+            android:textColor="@color/black"
+            android:textSize="10sp"
+            app:layout_constraintEnd_toStartOf="@id/entry"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/entry"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="00:00"
+            android:textColor="@color/black"
+            android:textSize="10sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/color"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="11dp"
+            android:layout_marginTop="6dp"
+            android:text="Prata"
+            android:textColor="@color/black"
+            android:textSize="12sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/model" />
 
         <TextView
             android:id="@+id/plate"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="6dp"
-            android:text="A3D44444"
-            app:layout_constraintStart_toEndOf="@id/label_plate"
-            app:layout_constraintTop_toTopOf="@id/label_plate" />
-
-        <TextView
-            android:id="@+id/predicted_time_label"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="Previsto: "
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/label_plate" />
-
-        <TextView
-            android:id="@+id/predicted_time"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="6dp"
-            android:text="1 hora"
-            app:layout_constraintStart_toEndOf="@id/predicted_time_label"
-            app:layout_constraintTop_toTopOf="@id/predicted_time_label" />
+            android:layout_marginTop="6dp"
+            android:text="BRA2E19"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            app:layout_constraintTop_toBottomOf="@id/label_entry"
+            app:layout_constraintStart_toStartOf="@id/label_entry"
+             />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:background="@color/black"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
 </LinearLayout>

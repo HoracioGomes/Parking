@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.jumppark.data.model.Voucher
 import com.example.jumppark.databinding.VehicleItemBinding
-import com.example.jumppark.ui.uiUtils.formatMinutes
 
 class ParkedRecyclerViewAdapter() :
     RecyclerView.Adapter<ParkedRecyclerViewAdapter.ParkedViewHolder>() {
@@ -44,8 +43,9 @@ class ParkedRecyclerViewAdapter() :
         RecyclerView.ViewHolder(binding.root) {
         fun binding(voucher: Voucher) {
             binding.plate.text = voucher.plate.toString()
-            binding.predictedTime.text = formatMinutes(voucher.predictedMin)
-
+            binding.entry.text = voucher.entryDate
+            binding.model.text = voucher.model
+            binding.color.text = voucher.color
             binding.root.setOnClickListener {
                 clickListener?.let { clickListener -> clickListener(voucher) }
             }
