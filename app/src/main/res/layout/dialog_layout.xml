@@ -2,16 +2,18 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center"
+    android:background="@drawable/shape_dialog"
     android:orientation="vertical">
 
     <TextView
         android:id="@+id/title_dialog"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:layout_marginLeft="24dp"
         android:layout_marginBottom="16dp"
         android:text="Title"
-        android:textAlignment="center"
+        android:layout_gravity="top|left"
         android:textSize="48sp" />
 
     <TextView
@@ -19,30 +21,35 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="32dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginLeft="24dp"
         android:text="Dialog text"
-        android:textAlignment="center"
+        android:layout_gravity="top|left"
         android:textSize="18sp" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:gravity="end"
         android:orientation="horizontal">
 
         <Button
             android:id="@+id/dialog_cancel_btn"
+            style="@style/ButtonBlueStyleSquare"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="6dp"
-            android:layout_weight="1"
             android:backgroundTint="#F44336"
             android:text="Cancelar" />
 
         <Button
             android:id="@+id/dialog_confirm_btn"
+            style="@style/ButtonGreenStyleSquare"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="6dp"
-            android:layout_weight="1"
+
             android:backgroundTint="#009688"
             android:text="Confirmar" />
     </LinearLayout>

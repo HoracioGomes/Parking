@@ -1,7 +1,6 @@
 package com.example.jumppark.ui
 
 import android.app.AlertDialog
-import android.content.res.ColorStateList
 import android.os.Bundle
 import android.view.Gravity
 import android.view.LayoutInflater
@@ -50,13 +49,22 @@ class VehicleDetailsFragment : BaseFragment() {
 
         configDetailsFields(selectedVoucher)
         configPaymentMethods(parkViewModel)
+        configButtonsListener(parkViewModel, view)
+    }
 
+    private fun configButtonsListener(
+        parkViewModel: ParkViewModel,
+        view: View
+    ) {
         bind.btnGetExit.setOnClickListener {
             if (parkViewModel.getSelectedPaymentMethodValue().value?.isNotEmpty() == true) {
                 getExitDialog = configDialog()
                 getExitDialog?.show()
             } else {
-                Snackbar.make(view, "Escolha uma forma de pagamento!", Snackbar.LENGTH_SHORT).show()
+                Snackbar.make(
+                    view,
+                    getString(R.string.alert_payment_method_not_selected), Snackbar.LENGTH_SHORT
+                ).show()
             }
         }
 
@@ -68,8 +76,8 @@ class VehicleDetailsFragment : BaseFragment() {
     private fun configDialog(): AlertDialog? {
         context?.let { context ->
             return DialogUtils(context).createDefaultDialog(
-                "Finalizar",
-                "Realizar Saída do Veículo?",
+                getString(R.string.title_dialog_get_exit),
+                getString(R.string.text_dialog_get_exit),
                 dialogConfirmAction,
                 dialogCancelAction
             )

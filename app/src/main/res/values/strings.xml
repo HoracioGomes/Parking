@@ -9,4 +9,7 @@
     <string name="parked_vehicles_toolbar_title">Veículos no Pátio</string>
     <string name="vehicle_details_toolbar_title">Detalhes do Veículo</string>
     <string name="loading">Loading...</string>
+    <string name="alert_payment_method_not_selected">Escolha uma forma de pagamento!</string>
+    <string name="title_dialog_get_exit">Finalizar</string>
+    <string name="text_dialog_get_exit">Realizar Saída do Veículo?</string>
 </resources>
