@@ -1,12 +1,15 @@
 package com.example.jumppark.ui
 
 import android.app.AlertDialog
+import android.content.res.ColorStateList
 import android.os.Bundle
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.OnClickListener
 import android.view.ViewGroup
 import android.widget.RadioButton
+import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.jumppark.MainActivity
@@ -49,8 +52,16 @@ class VehicleDetailsFragment : BaseFragment() {
         configPaymentMethods(parkViewModel)
 
         bind.btnGetExit.setOnClickListener {
-            getExitDialog = configDialog()
-            getExitDialog?.show()
+            if (parkViewModel.getSelectedPaymentMethodValue().value?.isNotEmpty() == true) {
+                getExitDialog = configDialog()
+                getExitDialog?.show()
+            } else {
+                Snackbar.make(view, "Escolha uma forma de pagamento!", Snackbar.LENGTH_SHORT).show()
+            }
+        }
+
+        bind.btnBackParkedList.setOnClickListener {
+            findNavController().navigate(VehicleDetailsFragmentDirections.actionVehicleDetailsFragmentToParkedVehiclesFragment())
         }
     }
 
@@ -95,14 +106,14 @@ class VehicleDetailsFragment : BaseFragment() {
 
     private fun configDetailsFields(selectedVoucher: Voucher?) {
         if (selectedVoucher != null) {
-            bind.includeDetailsVehicle.modelTextView.text = selectedVoucher?.model
-            bind.includeDetailsVehicle.colorTextView.text = selectedVoucher?.color
-            bind.includeDetailsVehicle.plateTextView.text = selectedVoucher?.plate
-            bind.includeDetailsVehicle.entryHourTextView.text = selectedVoucher?.entryDate
+            bind.includeDetailsVehicle.modelTextView.text = selectedVoucher.model
+            bind.includeDetailsVehicle.colorTextView.text = selectedVoucher.color
+            bind.includeDetailsVehicle.plateTextView.text = selectedVoucher.plate
+            bind.includeDetailsVehicle.entryHourTextView.text = selectedVoucher.entryDate
             bind.includeDetailsVehicle.predictedPeriodTextView.text =
-                formatMinutes(selectedVoucher?.predictedMin)
+                formatMinutes(selectedVoucher.predictedMin)
             bind.includeDetailsVehicle.predictedValueTextView.text =
-                formatDoubleToReais(selectedVoucher?.predictedValue)
+                formatDoubleToReais(selectedVoucher.predictedValue)
 
             bind.includeDetailsVehicle.consummatedPeriod.text =
                 setConsummatedPeriod(formatStringToDate(selectedVoucher.entryDate))
@@ -130,11 +141,19 @@ class VehicleDetailsFragment : BaseFragment() {
             for (method in paymentsMethod) {
                 val radioButton = RadioButton(activity)
                 radioButton.text = method.paymentMethodName
+                radioButton.buttonTintList =
+                    activity?.let {
+                        ContextCompat.getColorStateList(
+                            it.applicationContext,
+                            R.color.radio_button_selector
+                        )
+                    }
                 radioButton.setOnClickListener {
                     parkViewModel.setSelectedPaymentMethodValue(method.paymentMethodName)
                     parkViewModel.setSelectedPaymentMethodId(method.primitivePaymentMethodId)
                 }
                 bind.paymentsMethodRadioGroup.addView(radioButton)
+                bind.paymentsMethodRadioGroup.gravity = Gravity.CENTER_HORIZONTAL
             }
         }
     }

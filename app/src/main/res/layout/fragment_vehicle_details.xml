@@ -1,36 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_gravity="center_horizontal"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
     tools:context=".ui.VehicleDetailsFragment">
+
+    <include
+        android:id="@+id/include_details_vehicle"
+        layout="@layout/details_vehicle_layout"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="27dp"
+        android:layout_marginBottom="120dp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="30dp"
+        android:text="Método de Pagamento"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <RadioGroup
+        android:id="@+id/payments_method_radioGroup"
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginVertical="16dp"
+        android:orientation="horizontal" />
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:orientation="vertical">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="42dp"
+        android:orientation="horizontal">
 
-        <include
-            android:id="@+id/include_details_vehicle"
-            layout="@layout/details_vehicle_layout"
-            />
-
-
-        <RadioGroup
-            android:id="@+id/payments_method_radioGroup"
-            android:layout_width="match_parent"
-            android:layout_height="20dp"
-            android:layout_marginVertical="16dp"
-            android:orientation="horizontal"></RadioGroup>
+        <Button
+            android:id="@+id/btn_back_parked_list"
+            style="@style/ButtonBlueStyleCurved"
+            android:layout_width="120dp"
+            android:layout_height="60dp"
+            android:layout_margin="6dp"
+            android:layout_weight="1"
+            android:text="Voltar para Lista" />
 
         <Button
             android:id="@+id/btn_get_exit"
-            android:layout_width="200dp"
-            android:layout_height="100dp"
-            android:backgroundTint="@color/design_default_color_error"
+            style="@style/ButtonGreenStyleCurved"
+            android:layout_width="120dp"
+            android:layout_height="60dp"
+            android:layout_margin="6dp"
+            android:layout_weight="1"
             android:text="Dar Saída" />
     </LinearLayout>
-
-
-</FrameLayout>
+</LinearLayout>
