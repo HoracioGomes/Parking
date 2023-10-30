@@ -28,7 +28,7 @@ class PriceSpinnerAdapter(private val context: Context, private val prices: List
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
         val price = prices[position]
         val view =
-            LayoutInflater.from(context).inflate(R.layout.price_item, parent, false) as TextView
+            LayoutInflater.from(context).inflate(R.layout.top_price_dropdown, parent, false) as TextView
         view.text = "${formatPrices(price.period, price.price)}"
         return view
     }
