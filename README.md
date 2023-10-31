@@ -18,4 +18,4 @@
 
 ## Screens
 
-<img src="https://github.com/HoracioGomes/Utils/blob/master/Gifs/Parking-app.gif" width="300" height="600">
+<img src="https://github.com/HoracioGomes/Utils/blob/master/Gifs/Parking-app-1.1.gif" width="300" height="600">
