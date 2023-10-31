@@ -12,4 +12,6 @@
     <string name="alert_payment_method_not_selected">Escolha uma forma de pagamento!</string>
     <string name="title_dialog_get_exit">Finalizar</string>
     <string name="text_dialog_get_exit">Realizar Saída do Veículo?</string>
+    <string name="open_drawer">Open</string>
+    <string name="close_drawer">Close</string>
 </resources>

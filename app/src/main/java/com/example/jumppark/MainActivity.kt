@@ -1,9 +1,15 @@
 package com.example.jumppark
 
+import android.content.SharedPreferences
 import android.os.Bundle
+import android.view.MenuItem
 import android.view.View
+import android.widget.ImageView
+import android.widget.TextView
+import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.GravityCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.jumppark.databinding.ActivityMainBinding
@@ -13,12 +19,14 @@ import com.example.jumppark.presentation.factory.UserViewModelFactory
 import com.example.jumppark.presentation.viewmodel.BaseViewModel
 import com.example.jumppark.presentation.viewmodel.ParkViewModel
 import com.example.jumppark.presentation.viewmodel.UserViewModel
+import com.example.jumppark.ui.uiUtils.SharedPreferencesKeys
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.navigation.NavigationView
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
     @Inject
     lateinit var baseViewModelFactory: BaseViewModelFactory
 
@@ -27,9 +35,15 @@ class MainActivity : AppCompatActivity() {
 
     @Inject
     lateinit var userViewModelFactory: UserViewModelFactory
+
+    @Inject
+    lateinit var sharedPreferences: SharedPreferences
+
     lateinit var mainActivityBinding: ActivityMainBinding
     private lateinit var loading: AlertDialog
     lateinit var mainBnv: BottomNavigationView
+    lateinit var mToogle: ActionBarDrawerToggle
+
     lateinit var baseViewModel: BaseViewModel
     lateinit var parkViewModel: ParkViewModel
     lateinit var userViewModel: UserViewModel
@@ -40,10 +54,25 @@ class MainActivity : AppCompatActivity() {
         setContentView(mainActivityBinding.root)
         configBottomNavigation()
         configToolBar()
+        configDrawer()
         observeToolBar()
         observeBottomNavBar()
         configAlertLoading()
 
+    }
+
+    private fun configDrawer() {
+        mToogle = ActionBarDrawerToggle(
+            this, mainActivityBinding.appDrawer,
+            R.string.open_drawer, R.string.close_drawer
+        )
+        mToogle.syncState()
+        mainActivityBinding.appDrawer.addDrawerListener(mToogle)
+        mainActivityBinding.mainNavView.setNavigationItemSelectedListener(this)
+        mainActivityBinding.mainNavView.itemIconTintList = null
+        val userNameMenu = mainActivityBinding.mainNavView.getHeaderView(0)
+        val userNameTv = userNameMenu.findViewById<TextView>(R.id.name_usuario_header)
+        userNameTv.text = sharedPreferences.getString(SharedPreferencesKeys.username.toString(), "")
     }
 
     private fun configAlertLoading() {
@@ -73,7 +102,11 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun configToolBar() {
-        setSupportActionBar(mainActivityBinding.toolbar);
+        setSupportActionBar(mainActivityBinding.mainToolbar);
+        val icMenu = mainActivityBinding.mainToolbar.findViewById<ImageView>(R.id.ic_drawer_menu)
+        icMenu.setOnClickListener {
+            mainActivityBinding.appDrawer.openDrawer(GravityCompat.START)
+        }
     }
 
     private fun observeBottomNavBar() {
@@ -91,9 +124,9 @@ class MainActivity : AppCompatActivity() {
     private fun observeToolBar() {
         baseViewModel.toolBarVisibility.observe(this, Observer { isVisible ->
             if (isVisible) {
-                mainActivityBinding.toolbar.visibility = View.VISIBLE
+                mainActivityBinding.mainToolbar.visibility = View.VISIBLE
             } else {
-                mainActivityBinding.toolbar.visibility = View.GONE
+                mainActivityBinding.mainToolbar.visibility = View.GONE
             }
 
         })
@@ -110,4 +143,9 @@ class MainActivity : AppCompatActivity() {
             loading.dismiss()
         }
     }
+
+    override fun onNavigationItemSelected(item: MenuItem): Boolean {
+        TODO("Not yet implemented")
+    }
+
 }
