@@ -42,17 +42,19 @@ open class BaseFragment : Fragment() {
             FragmentNames.LoginFragment.toString() -> {
                 baseViewModel.setBottomNavVisibility(false)
                 baseViewModel.setToolBarVisibility(false)
+                baseViewModel.setDrawerVisibility(false)
             }
 
             FragmentNames.SplashScreenFragment.toString() -> {
                 baseViewModel.setBottomNavVisibility(false)
                 baseViewModel.setToolBarVisibility(false)
+                baseViewModel.setDrawerVisibility(false)
             }
 
             else -> {
                 baseViewModel.setBottomNavVisibility(true)
                 baseViewModel.setToolBarVisibility(true)
-
+                baseViewModel.setDrawerVisibility(true)
             }
         }
     }

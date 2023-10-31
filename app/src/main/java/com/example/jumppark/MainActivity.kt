@@ -10,6 +10,7 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.jumppark.databinding.ActivityMainBinding
@@ -55,10 +56,15 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         configBottomNavigation()
         configToolBar()
         configDrawer()
-        observeToolBar()
-        observeBottomNavBar()
+        initVisibilityWidgetsObservers()
         configAlertLoading()
 
+    }
+
+    private fun initVisibilityWidgetsObservers() {
+        observeToolBar()
+        observeBottomNavBar()
+        observeDrawer()
     }
 
     private fun configDrawer() {
@@ -129,6 +135,16 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 mainActivityBinding.mainToolbar.visibility = View.GONE
             }
 
+        })
+    }
+
+    private fun observeDrawer() {
+        baseViewModel.drawerVisibility.observe(this, Observer { isVisible ->
+            if (isVisible) {
+                mainActivityBinding.appDrawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
+            } else {
+                mainActivityBinding.appDrawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
+            }
         })
     }
 

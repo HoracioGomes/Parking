@@ -12,12 +12,14 @@ class BaseViewModel(
 ) : AndroidViewModel(app) {
     private val _bottomNavVisibility = MutableLiveData<Boolean>()
     private val _toolBarVisibility = MutableLiveData<Boolean>()
+    private val _drawerVisibility = MutableLiveData<Boolean>()
     private val _vouchers = MutableLiveData<MutableList<Voucher>>()
     private val _loadedData = MutableLiveData<Boolean>()
     private val _parkedVouchers = MutableLiveData<MutableList<Voucher>>()
     private val _loadedDataParkedList = MutableLiveData<Boolean>()
     val bottomNavVisibility: LiveData<Boolean> get() = _bottomNavVisibility
     val toolBarVisibility: LiveData<Boolean> get() = _toolBarVisibility
+    val drawerVisibility: LiveData<Boolean> get() = _drawerVisibility
     val vouchers: LiveData<MutableList<Voucher>> get() = _vouchers
     val loadedData: LiveData<Boolean> get() = _loadedData
     val parkedVouchers: LiveData<MutableList<Voucher>> get() = _parkedVouchers
@@ -31,12 +33,16 @@ class BaseViewModel(
         _toolBarVisibility.value = isVisible
     }
 
+    fun setDrawerVisibility(isVisible: Boolean) {
+        _drawerVisibility.value = isVisible
+    }
+
     fun setVouchers(vouchers: List<Voucher>) {
         _vouchers.value = vouchers.toMutableList()
         setLoadedData(true)
     }
 
-    fun setLoadedData(status: Boolean){
+    fun setLoadedData(status: Boolean) {
         _loadedData.value = status
     }
 
@@ -45,7 +51,7 @@ class BaseViewModel(
         setLoadedDataParkedList(true)
     }
 
-    fun setLoadedDataParkedList(status: Boolean){
+    fun setLoadedDataParkedList(status: Boolean) {
         _loadedDataParkedList.value = status
     }
 
