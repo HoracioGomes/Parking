@@ -6,8 +6,8 @@ import com.example.jumppark.domain.repository.EstablishmentRepository
 
 
 class GetStablishmentInformationUseCase(private val repository: EstablishmentRepository) {
-    suspend fun execute(establishmentId: String, userId: String): Resource<EstablishmentResponse> {
-        return repository.getEstablishmentInformations(establishmentId = establishmentId, userId = userId)
+    suspend fun execute(establishmentId: String, userId: String, token: String?): Resource<EstablishmentResponse> {
+        return repository.getEstablishmentInformations(establishmentId = establishmentId, userId = userId, token = token)
     }
 
 }

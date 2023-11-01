@@ -54,9 +54,8 @@ class LoginFragment : BaseFragment() {
                         .putString("${SharedPreferencesKeys.establishmentId}", response.data?.data?.session?.establishmentId.toString())
                         .putString("${SharedPreferencesKeys.userId}", response.data?.data?.user?.userId.toString())
                         .putString("${SharedPreferencesKeys.sessonId}", response.data?.data?.session?.sessionId.toString())
-                        .apply()
+                        .commit()
 
-                    hideProgressbar()
                     findNavController().navigate(
                         LoginFragmentDirections
                             .actionLoginFragmentToHomeFragment()
@@ -65,7 +64,6 @@ class LoginFragment : BaseFragment() {
 
                 is Resource.Error -> {
                     hideProgressbar()
-
                     response.message.let {
                         Snackbar.make(
                             binding.root,

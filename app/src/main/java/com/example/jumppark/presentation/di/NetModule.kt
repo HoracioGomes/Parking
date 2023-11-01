@@ -1,10 +1,8 @@
 package com.example.jumppark.presentation.di
 
 import android.content.SharedPreferences
-import com.example.jumppark.presentation.presentationUtils.AuthInterceptor
 import com.example.jumppark.data.api.EstablishmentAPIService
 import com.example.jumppark.data.api.UserAPIService
-import com.example.jumppark.ui.uiUtils.SharedPreferencesKeys
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -22,18 +20,16 @@ class NetModule {
 
     @Singleton
     @Provides
-    fun provideRetrofit(sharedPreferences: SharedPreferences): Retrofit {
-        val token = sharedPreferences.getString("${SharedPreferencesKeys.token}", "")
+    fun provideRetrofit(): Retrofit {
         val loggingInterceptor = HttpLoggingInterceptor()
         loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
-        val interceptor = AuthInterceptor(token)
         return Retrofit.Builder()
             .addConverterFactory(GsonConverterFactory.create())
             .client(
                 OkHttpClient.Builder()
-                    .addInterceptor(interceptor)
                     .addInterceptor(loggingInterceptor)
-                    .build())
+                    .build()
+            )
             .baseUrl("https://dev.app.jumpparkapi.com.br/api/")
             .build()
     }

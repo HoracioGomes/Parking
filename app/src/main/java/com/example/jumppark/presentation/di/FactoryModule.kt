@@ -1,6 +1,7 @@
 package com.example.jumppark.presentation.di
 
 import android.app.Application
+import android.content.SharedPreferences
 import com.example.jumppark.domain.usecase.GetLoginUseCase
 import com.example.jumppark.domain.usecase.GetLogoutUseCase
 import com.example.jumppark.domain.usecase.GetSavedVoucherUseCase
@@ -25,11 +26,12 @@ class FactoryModule {
         application: Application,
         getEstablishmentInfoUseCase: GetStablishmentInformationUseCase,
         launchEntryUseCase: LaunchEntryUseCase,
-        getSavedVoucherUseCase: GetSavedVoucherUseCase
+        getSavedVoucherUseCase: GetSavedVoucherUseCase,
+        sharedPreferences: SharedPreferences
     ): ParkViewModelFactory {
         return ParkViewModelFactory(
             application, getEstablishmentInfoUseCase,
-            launchEntryUseCase, getSavedVoucherUseCase
+            launchEntryUseCase, getSavedVoucherUseCase, sharedPreferences
         )
     }
 

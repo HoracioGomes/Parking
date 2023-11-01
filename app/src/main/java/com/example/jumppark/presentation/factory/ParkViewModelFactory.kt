@@ -1,6 +1,7 @@
 package com.example.jumppark.presentation.factory
 
 import android.app.Application
+import android.content.SharedPreferences
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.jumppark.domain.usecase.GetSavedVoucherUseCase
@@ -12,14 +13,16 @@ class ParkViewModelFactory(
     private val app: Application,
     private val getEstablishmentUseCase: GetStablishmentInformationUseCase,
     private val launchEntryUseCase: LaunchEntryUseCase,
-    private val getSavedVoucherUseCase: GetSavedVoucherUseCase
+    private val getSavedVoucherUseCase: GetSavedVoucherUseCase,
+    private val sharedPreferences: SharedPreferences
 ) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return ParkViewModel(
             app,
             getEstablishmentUseCase,
             launchEntryUseCase,
-            getSavedVoucherUseCase
+            getSavedVoucherUseCase,
+            sharedPreferences
         ) as T
     }
 }

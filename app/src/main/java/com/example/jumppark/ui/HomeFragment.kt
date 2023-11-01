@@ -82,7 +82,6 @@ class HomeFragment : BaseFragment() {
                     }
 
                     is Resource.Error -> {
-                        hideProgressbar()
                         val message = response.message
                         message?.let {
                             Snackbar.make(

@@ -4,5 +4,5 @@ import com.example.jumppark.data.model.responses.establishment.EstablishmentResp
 import retrofit2.Response
 
 interface EstablishmentRemoteDataSource {
-    suspend fun getEstablishmentInformations(establishmentId: String, userId: String): Response<EstablishmentResponse>
+    suspend fun getEstablishmentInformations(establishmentId: String, userId: String, token: String?): Response<EstablishmentResponse>
 }

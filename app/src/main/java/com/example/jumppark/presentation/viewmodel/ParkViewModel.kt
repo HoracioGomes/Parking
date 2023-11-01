@@ -1,6 +1,7 @@
 package com.example.jumppark.presentation.viewmodel
 
 import android.app.Application
+import android.content.SharedPreferences
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -15,6 +16,7 @@ import com.example.jumppark.domain.usecase.GetSavedVoucherUseCase
 import com.example.jumppark.domain.usecase.GetStablishmentInformationUseCase
 import com.example.jumppark.domain.usecase.LaunchEntryUseCase
 import com.example.jumppark.presentation.presentationUtils.isNetworkAvailable
+import com.example.jumppark.ui.uiUtils.SharedPreferencesKeys
 import com.example.jumppark.ui.uiUtils.getDifferMinBetweenEntryExit
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.FlowCollector
@@ -25,7 +27,8 @@ class ParkViewModel(
     private val app: Application,
     private val getEstablishmentUseCase: GetStablishmentInformationUseCase,
     private val launchEntryUseCase: LaunchEntryUseCase,
-    private val getSavedVoucherUseCase: GetSavedVoucherUseCase
+    private val getSavedVoucherUseCase: GetSavedVoucherUseCase,
+    private val sharedPreferences: SharedPreferences
 ) : AndroidViewModel(app) {
     private val _establishmentLiveData = MutableLiveData<Resource<EstablishmentResponse>>()
     private val establishmentLiveData: LiveData<Resource<EstablishmentResponse>> get() = _establishmentLiveData
@@ -47,10 +50,12 @@ class ParkViewModel(
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 if (isNetworkAvailable(app)) {
+                    val token = sharedPreferences.getString("${SharedPreferencesKeys.token}", "")
                     _establishmentLiveData.postValue(Resource.Loading())
                     val requestResult = getEstablishmentUseCase.execute(
                         establishmentId = establishmentId,
-                        userId = userId
+                        userId = userId,
+                        token = token
                     )
                     _establishmentLiveData.postValue(requestResult)
                 } else {
