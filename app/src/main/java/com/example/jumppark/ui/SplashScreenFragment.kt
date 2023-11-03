@@ -7,6 +7,7 @@ import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import com.example.jumppark.R
 import com.example.jumppark.databinding.FragmentSplashScreenBinding
@@ -39,15 +40,16 @@ class SplashScreenFragment : BaseFragment() {
     }
 
     private fun checkIfLogged() {
-        if (sharedPreferences.getString(
+        val options = NavOptions.Builder()
+            .setPopUpTo(R.id.splashScreenFragment, true)
+            .build()
+        if ((sharedPreferences.getString(
                 "${SharedPreferencesKeys.token}",
                 ""
-            )?.length ?: 0 > 1
-        ) {
-            findNavController().navigate(SplashScreenFragmentDirections.actionSplashScreenFragmentToHomeFragment())
-        } else {
+            )?.length ?: 0) > 1
+        ) findNavController().navigate(R.id.homeFragment, null, options) else {
             findNavController()
-                .navigate(SplashScreenFragmentDirections.actionSplashScreenFragmentToLoginFragment())
+                .navigate(R.id.loginFragment, null, options)
         }
     }
 

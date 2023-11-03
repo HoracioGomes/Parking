@@ -8,13 +8,10 @@ fun <T> responseToResource(response: Response<T>): Resource<T> {
             return Resource.Success(result)
         }
     } else if (response.raw().code == 400) {
-        return Resource.Error(data = null, message = "invalid credential!")
-
+        return Resource.Error(data = null, message = "Not Allowed!")
     } else if (response.raw().code == 422) {
-
-        return Resource.Error(data = null, message = "incorrect format!")
+        return Resource.Error(data = null, message = "Incorrect format!")
     }
-
     return Resource.Error(data = null, message = "Something went wrong!")
 
 }
